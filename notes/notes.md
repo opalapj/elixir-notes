@@ -782,6 +782,10 @@ More:
 - https://hexdocs.pm/elixir/1.18.3/Module.html#c:__info__/1
 - https://hexdocs.pm/elixir/1.18.3/Module.html#module-generated-functions
 
+# Protocols
+
+
+
 # Behaviours
 
 Behaviours in `Elixir` (and `Erlang`) are a way to separate and abstract

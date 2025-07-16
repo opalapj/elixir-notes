@@ -897,8 +897,26 @@ iex> quote do: sum(1, 2, 3)
 
 # OOP pillars vs functional programming
 
+In a typical OOP, the basic abstraction building blocks are classes and objects.
+For example, there may be a `String` class available that implements various
+string operations. Each string is then an instance of that class that can be
+manipulated by calling methods, as the following `Python` snippet illustrates:
+
+```python
+"a string".upper()
+```
+
+This approach generally isn’t used in functional programming. E.g. `Elixir`
+promotes decoupling of data from the code. Instead of classes, you use modules,
+which are collection of functions. Instead of calling methods on objects, you
+explicitly call module functions and provide input data via arguments. The
+following snippet shows the `Elixir` way of uppercasing the string:
+
+```elixir
+String.upcase("a string")
+```
+
 OOP (e.g. `Python`):
-- modules
 - classes
 - methods
 - attributes

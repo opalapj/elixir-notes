@@ -1284,6 +1284,25 @@ More:
 
 https://hexdocs.pm/elixir/1.18.4/modules-and-functions.html#scripting-mode
 
+## Matching struct name (`%_{}`)
+
+```elixir
+defmodule User do
+  defstruct [:email, name: "John", age: 27]
+end
+```
+
+```bash
+iex> %module_name{} = %User{name: "Piotr", age: 30, email: "opalap@op.pl"}
+%User{email: "opalap@op.pl", name: "Piotr", age: 30}
+
+iex> module_name
+User
+
+iex> %_{} = %User{name: "Piotr", age: 30, email: "opalap@op.pl"}
+%User{email: "opalap@op.pl", name: "Piotr", age: 30}
+```
+
 ## Matching non-empty list (`[]` vs `[_|_]`)
 
 ```elixir

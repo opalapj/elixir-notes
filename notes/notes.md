@@ -1126,6 +1126,80 @@ acc.deposit(100)
 print(acc.get_balance())  # Output: 100
 ```
 
+# Anonymous functions (`fn`)
+
+More:
+- https://hexdocs.pm/elixir/1.18.4/anonymous-functions.html
+- https://hexdocs.pm/elixir/1.18.4/Function.html
+- https://hexdocs.pm/elixir/1.18.4/Kernel.SpecialForms.html#fn/1
+- https://hexdocs.pm/elixir/1.18.4/Kernel.SpecialForms.html#&/1
+
+## Capture operator (`&`) and placeholders (`&1, &2, ...`)
+
+Capture operator is used:
+
+- to capture public module functions and pass them around as if they were
+anonymous functions
+
+    ```elixir
+    add = &Kernel.+/2
+    ```
+
+- as a shortcut for creating functions that wrap existing functions
+
+    ```elixir
+    add_two = &Kernel.+(&1 + 2)
+    ```
+
+- as a shortcut for creating anonymous functions
+
+    ```elixir
+    add = &(&1 + &2)
+
+    instead of
+
+    add = fn a, b -> a + b end
+    ```
+
+## Omitting brackets (`&(...)`)
+
+In some cases brackets can be ommited, e.g.:
+
+- strings
+
+    ```elixir
+    fun = &("Hello #{&1}")
+    fun = &"Hello #{&1}"
+    ```
+
+- tuples
+
+    ```elixir
+    fun = &({&1, &2})
+    fun = &{&1, &2}
+    ```
+
+- lists
+
+    ```elixir
+    fun = &([&1 | &2])
+    fun = &[&1 | &2]
+    ```
+
+## Restrictions of using capture operator
+
+- at least one placeholder must be present:
+
+    ```elixir
+    &(:foo)
+    ```
+
+- block expressions are not supported:
+
+    ```elixir
+    &(&1; &2)
+    ```
+
 # String
 
 ## Interpolation

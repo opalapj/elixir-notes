@@ -615,10 +615,15 @@ Explanation:
 `Elixir` documentation is written using `Markdown`.
 
 There are 3 types of docs (actually module attributes):
-- `@moduledoc`, used to add documentation to the module
-- `@doc`, used before a function to provide documentation for it
-- `@typedoc`,  used to attach documentation to types defined as part of
-typespecs
+- `@moduledoc`, used to add documentation to:
+    - module - `defmodule`, see: `h GenServer`
+    - protocol - `defprotocol`, see: `h Enumerable`
+- `@doc`, used to add documentation to:
+    - function - `def`, see: `h GenServer.whereis`
+    - behaviour callback - `@callback`, see: `b GenServer.handle_info`
+    - struct - `defstruct`, see: `h Task.__struct__`
+- `@typedoc`, used to add documentation to:
+    - types - `@type`, see: `t Task.t`
 
 Accept one of these:
 

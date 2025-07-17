@@ -414,6 +414,22 @@ More:
 - https://www.erlang.org/doc/apps/kernel/code#lib_dir/2
 - https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Release.html#module-directory-structure
 
+## `Hex`
+
+`Hex` is the package manager for the `Erlang` ecosystem.
+
+`Hex` is usable out of the box in `Elixir` with `Mix` and in `Erlang` with
+`Rebar3`.
+
+### Installation
+
+`Mix` will automatically prompt you whenever there is a need to use `Hex`. In
+case you want to manually install or update `hex`, simply run:
+
+```bash
+$ mix local.hex
+```
+
 ## Dependencies
 
 Dependencies must be specified in the `mix.exs` file.

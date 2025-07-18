@@ -895,7 +895,140 @@ end
 
 # Protocols
 
+Protocols are a mechanism to achieve polymorphism in `Elixir` where you want the
+behavior to vary depending on the data type.
 
+A protocol is defined with `Kernel.defprotocol/2` and its implementations with
+`Kernel.defimpl/3`.
+
+We define the protocol using `defprotocol/2` - its functions and specs may look
+similar to interfaces or abstract base classes in other languages. We can add as
+many implementations as we like using `defimpl/2`.
+
+More:
+- https://hexdocs.pm/elixir/1.17.3/protocols.html#content
+- https://hexdocs.pm/elixir/1.18.4/Protocol.html
+
+## Defining
+
+```elixir
+defprotocol Animal do
+  @moduledoc """
+  The `Animal` protocol provides API to work with the most popular pets.
+  """
+
+  @doc """
+  Presents the characteristic sound made by a particular pet.
+  """
+  @spec speak(t) :: String.t()
+  def speak(animal)
+end
+```
+
+## Implementing
+
+```elixir
+defimpl Animal, for: Dog do
+  def speak(_dog), do: "Woof"
+end
+```
+
+## Implementing `Any`
+
+Manually implementing protocols for all types can quickly become repetitive and
+tedious. In such cases, `Elixir` provides two options:
+- explicitly derive the protocol implementation for specific type
+- implicitly derive the protocol implementation for all types
+
+In both cases, we need to implement the protocol for `Any`.
+
+Example definition and implementation:
+
+```elixir
+defprotocol Size do
+  @doc "Calculates the size (and not the length!) of a data structure"
+  def size(data)
+end
+
+defimpl Size, for: BitString do
+  def size(string), do: byte_size(string)
+end
+
+defimpl Size, for: Map do
+  def size(map), do: map_size(map)
+end
+
+defimpl Size, for: Tuple do
+  def size(tuple), do: tuple_size(tuple)
+end
+
+defmodule User do
+  defstruct [:name, :age]
+end
+```
+
+### Add implementation for `Any`
+
+```elixir
+defimpl Size, for: Any do
+  def size(term) do
+    type =
+      term
+      |> IEx.Info.info()
+      |> Enum.find_value(fn {x, y} -> if x == "Data type", do: y end)
+
+    "Impossible to determine size of #{type}"
+  end
+end
+```
+
+### Explicitly derive the protocol implementation for specific type
+
+Once the implementation for `Any` is defined, there are two ways it can be
+derived:
+
+- using the `@derive` module attribute by the time you define the struct:
+
+    ```elixir
+    defmodule User do
+    @derive [Size]
+    defstruct [:name, :age]
+    end
+    ```
+
+- using the `Protocol.derive/3` macro, if the struct has already been defined:
+
+    ```elixir
+    require Protocol
+    Protocol.derive(Size, User)
+    ```
+
+### Implicitly derive the protocol implementation for all types
+
+This can be achieved by setting `@fallback_to_any` to `true` in the protocol
+definition:
+
+```elixir
+defprotocol Size do
+  @fallback_to_any true
+  @doc "Calculates the size (and not the length!) of a data structure"
+  def size(data)
+end
+```
+
+## Checking implemented protocols
+
+```bash
+iex> i %{}
+Term
+  %{}
+Data type
+  Map
+Reference modules
+  Map
+Implemented protocols
+  Collectable, Enumerable, IEx.Info, Inspect, Plug.Exception
+```
 
 # Behaviours
 

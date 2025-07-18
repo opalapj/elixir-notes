@@ -782,6 +782,96 @@ More:
 - https://hexdocs.pm/elixir/1.18.3/Module.html#c:__info__/1
 - https://hexdocs.pm/elixir/1.18.3/Module.html#module-generated-functions
 
+# Struct
+
+A struct is a tagged map that allows developers to provide default values for
+keys, tags to be used in polymorphic dispatches and compile time assertions.
+
+It is only possible to define a struct per module, as the struct is tied to the
+module itself.
+
+More:
+- https://hexdocs.pm/elixir/1.18.4/structs.html
+- https://hexdocs.pm/elixir/1.18.4/Kernel.html#defstruct/1
+- https://hexdocs.pm/elixir/1.18.4/Module.html#module-struct-attributes
+- https://hexdocs.pm/elixir/1.18.4/Kernel.SpecialForms.html#%25/2
+
+## Deriving
+
+More:
+- https://hexdocs.pm/elixir/1.18.4/Protocol.html#c:__deriving__/2
+- https://hexdocs.pm/elixir/1.18.4/Protocol.html#derive/3
+- https://hexdocs.pm/elixir/1.18.4/Inspect.html#module-deriving
+- https://hexdocs.pm/iex/1.18.4/IEx.Info.html
+
+## Matching structs against maps
+
+The `__struct__` field has an important consequence on pattern matching.
+A struct pattern can’t match a plain map, but a plain map pattern can match
+a struct:
+
+```bash
+iex> roksi = %Dog{name: "Roxana", age: 3}
+%Dog{name: "Roxana", age: 3, breed: "Barker"}
+iex> %{breed: rasa} = roksi
+%Dog{name: "Roxana", age: 3, breed: "Barker"}
+iex> rasa
+"Barker"
+```
+
+Remember, all fields from the pattern must exist in the matched term.
+
+## Full example of struct and protocol
+
+```elixir
+defmodule Dog do
+  @doc """
+  The Dog struct.
+
+  Contains these fields:
+  * `:name` - name of the dog
+  * `:age` - age of the dog
+  * `breed` - breed of the dog
+  """
+  @derive {Inspect, only: [:name]}
+  @enforce_keys [:name]
+  defstruct [:name, :age, breed: "Barker"]
+
+  @typedoc """
+  The Dog type.
+
+  See [`%Dog{}`](`__struct__/0`) for information about each field of the structure.
+  """
+  @type t :: %__MODULE__{name: String.t(), age: non_neg_integer, breed: String.t()}
+end
+
+defimpl IEx.Info, for: Dog do
+  def info(%module{name: name, age: age, breed: breed}) do
+    [
+      {"Data type", inspect(module)},
+      {"Description", "My dog #{name} is #{age} year old and it is #{breed} breed."},
+      {"Reference modules", inspect(module) <> ", Map"}
+    ]
+  end
+end
+
+defprotocol Animal do
+  @moduledoc """
+  The `Animal` protocol provides API to work with the most popular pets.
+  """
+
+  @doc """
+  Presents the characteristic sound made by a particular pet.
+  """
+  @spec speak(t) :: String.t()
+  def speak(animal)
+end
+
+defimpl Animal, for: Dog do
+  def speak(_dog), do: "Woof"
+end
+```
+
 # Protocols
 
 

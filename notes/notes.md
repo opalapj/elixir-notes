@@ -1030,6 +1030,58 @@ Implemented protocols
   Collectable, Enumerable, IEx.Info, Inspect, Plug.Exception
 ```
 
+## Extra
+
+- Is the module a protocol?
+
+    1. Using `IEx` helper, `Protocol` chapter
+
+        ```bash
+        iex> i Enumerable
+        ```
+
+    2. Presence of `__protocol__` callback
+
+        ```bash
+        Kernel.function_exported?(Enumerable, :__protocol__, 1)
+        ```
+
+- Does the type have any protocol implemented?
+
+    1. Using `IEx` helper, `Implemented protocols` chapter
+
+        ```bash
+        iex> i [1, 2, 3]
+        ```
+
+    2. Using set of functions
+
+        ```bash
+        :code.get_path()
+        |> Protocol.extract_protocols()
+        |> Enum.uniq()
+        |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) != nil end)
+        |> Enum.any?()
+        ```
+
+- Does the type have a specific protocol implemented?
+
+    1. Using `IEx` helper, `Implemented protocols` chapter
+
+        ```bash
+        iex> i [1, 2, 3]
+        ```
+
+    2. Using set of functions
+
+        ```bash
+        :code.get_path()
+        |> Protocol.extract_protocols()
+        |> Enum.uniq()
+        |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) == Enumerable.List end)
+        |> Enum.any?()
+        ```
+
 # Behaviours
 
 Behaviours in `Elixir` (and `Erlang`) are a way to separate and abstract
@@ -1103,6 +1155,76 @@ Examples:
 
 - https://hexdocs.pm/elixir/1.18.3/GenServer.html
 - https://hexdocs.pm/elixir/1.18.3/Application.html
+
+## Extra
+
+- Is the module a behaviour?
+
+    ```bash
+    Kernel.function_exported?(GenServer, :behaviour_info, 1)
+    ```
+
+- Does the module adopt any behaviour?
+
+    ```bash
+    Keyword.has_key?(Dog.module_info(:attributes), :behaviour)
+    ```
+
+- Does the module adopt a specific behaviour?
+
+    ```bash
+    :attributes
+    |> Dog.module_info()
+    |> Keyword.get_values(:behaviour)
+    |> List.flatten()
+    |> Enum.member?(Animal)
+    ```
+
+# Protocols vs Behaviours
+
+Protocols are about data, Behaviours are about modules.
+
+## Protocols
+
+Is way of doing something with a type of data. It’s useful when you have some
+data and need to say “I want to be able to do X with this”.
+
+You implement protocols by declaring the implementation for a specific datatype,
+and use them by passing data into a function that expects to be able to use the
+protocol for that data.
+
+## Behaviours
+
+Is a list of functions that a module has. It’s useful when you’re doing
+something and need to say “now I need you to do your bit”.
+
+You implement behaviours by defining the required functions in a module, and use
+them by passing that module name into something that expects to be able to call
+the functions in the behaviour.
+
+More:
+- https://elixirforum.com/t/help-understanding-protocols-and-behaviours/57229/4
+
+## Thoughts about implementation stage
+
+Behaviours have to be implemented during specific module implementation.
+
+Protocols can be implemented outside module for specific type, e.g. `Enumerable`
+protocol:
+
+- for lists, maps and functions - protocol implemented outside corresponding
+modules i.e. `List`, `Map`, `Function`
+
+- for ranges, hashdicts etc. - protocol implemented inside corresponding
+modules i.e. `Range`, `HashDict` etc.
+
+## Use Protocol as Behavior
+
+It is possible to declare Protocol as Behaviour:
+
+```elixir
+@behaviour ProtocolName
+```
 
 # `use`
 
@@ -1209,9 +1331,24 @@ print(dog.bark())  # Output: Woof!
 
 ### Elixir
 
-use
+First - `Elixir` is FP, not OOP!
 
-defdelegate
+> FWIW, one rule of thumb coming from OO land to Elixir Land. Everytime you
+start thinking you need to “inherit” something, instead think about composing
+something. Actually that rule works pretty well in OO Land as well.
+
+Use `use` with `delegate` for inheritance at functions level.
+
+More:
+- https://elixirforum.com/t/inheritance-in-elixir/58085
+- https://stackoverflow.com/questions/35302208/how-do-you-extend-inherit-an-elixir-module
+- https://blixtdev.com/dont-do-this-object-oriented-inheritance-in-elixir-with-macros/
+
+Use composition for inheritance at structs level.
+
+More:
+- https://elixirforum.com/t/a-sort-of-inheritance-for-struct/942
+- https://stackoverflow.com/questions/32847464/struct-reuse-for-modules-in-elixir
 
 ## Polymorphism
 
@@ -1333,7 +1470,9 @@ Methods to achieve polymorphism:
     print(animal_sound(Dog()))  # Output: Woof
     ```
 
-protocol
+### Elixir
+
+Use Protocol for data polymorphism and Behaviour for module polymorphism.
 
 ## Abstraction
 
@@ -1363,6 +1502,10 @@ dog = Dog()
 print(dog.make_sound())  # Output: Woof!
 ```
 
+### Elixir
+
+Use Behaviour for module abstraction.
+
 ## Encapsulation
 
 Encapsulation describes the idea of bundling attributes and methods that work on
@@ -1391,6 +1534,12 @@ acc = BankAccount()
 acc.deposit(100)
 print(acc.get_balance())  # Output: 100
 ```
+
+### Elixir
+
+The only thing I can think of is using struct as a class, its elements as
+attributes and functions as methods. Then these functions could read and write
+attributes, so it would act as a property in a way.
 
 # Anonymous functions (`fn`)
 

@@ -1180,6 +1180,52 @@ Examples:
     |> Enum.member?(Animal)
     ```
 
+# Protocols vs Behaviours
+
+Protocols are about data, Behaviours are about modules.
+
+## Protocols
+
+Is way of doing something with a type of data. It’s useful when you have some
+data and need to say “I want to be able to do X with this”.
+
+You implement protocols by declaring the implementation for a specific datatype,
+and use them by passing data into a function that expects to be able to use the
+protocol for that data.
+
+## Behaviours
+
+Is a list of functions that a module has. It’s useful when you’re doing
+something and need to say “now I need you to do your bit”.
+
+You implement behaviours by defining the required functions in a module, and use
+them by passing that module name into something that expects to be able to call
+the functions in the behaviour.
+
+More:
+- https://elixirforum.com/t/help-understanding-protocols-and-behaviours/57229/4
+
+## Thoughts about implementation stage
+
+Behaviours have to be implemented during specific module implementation.
+
+Protocols can be implemented outside module for specific type, e.g. `Enumerable`
+protocol:
+
+- for lists, maps and functions - protocol implemented outside corresponding
+modules i.e. `List`, `Map`, `Function`
+
+- for ranges, hashdicts etc. - protocol implemented inside corresponding
+modules i.e. `Range`, `HashDict` etc.
+
+## Use Protocol as Behavior
+
+It is possible to declare Protocol as Behaviour:
+
+```elixir
+@behaviour ProtocolName
+```
+
 # `use`
 
 The `use` macro is frequently used as an extension point. This means that, when

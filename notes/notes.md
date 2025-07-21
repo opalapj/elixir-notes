@@ -1030,6 +1030,58 @@ Implemented protocols
   Collectable, Enumerable, IEx.Info, Inspect, Plug.Exception
 ```
 
+## Extra
+
+- Is the module a protocol?
+
+    1. Using `IEx` helper, `Protocol` chapter
+
+        ```bash
+        iex> i Enumerable
+        ```
+
+    2. Presence of `__protocol__` callback
+
+        ```bash
+        Kernel.function_exported?(Enumerable, :__protocol__, 1)
+        ```
+
+- Does the type have any protocol implemented?
+
+    1. Using `IEx` helper, `Implemented protocols` chapter
+
+        ```bash
+        iex> i [1, 2, 3]
+        ```
+
+    2. Using set of functions
+
+        ```bash
+        :code.get_path()
+        |> Protocol.extract_protocols()
+        |> Enum.uniq()
+        |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) != nil end)
+        |> Enum.any?()
+        ```
+
+- Does the type have a specific protocol implemented?
+
+    1. Using `IEx` helper, `Implemented protocols` chapter
+
+        ```bash
+        iex> i [1, 2, 3]
+        ```
+
+    2. Using set of functions
+
+        ```bash
+        :code.get_path()
+        |> Protocol.extract_protocols()
+        |> Enum.uniq()
+        |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) == Enumerable.List end)
+        |> Enum.any?()
+        ```
+
 # Behaviours
 
 Behaviours in `Elixir` (and `Erlang`) are a way to separate and abstract
@@ -1103,6 +1155,30 @@ Examples:
 
 - https://hexdocs.pm/elixir/1.18.3/GenServer.html
 - https://hexdocs.pm/elixir/1.18.3/Application.html
+
+## Extra
+
+- Is the module a behaviour?
+
+    ```bash
+    Kernel.function_exported?(GenServer, :behaviour_info, 1)
+    ```
+
+- Does the module adopt any behaviour?
+
+    ```bash
+    Keyword.has_key?(Dog.module_info(:attributes), :behaviour)
+    ```
+
+- Does the module adopt a specific behaviour?
+
+    ```bash
+    :attributes
+    |> Dog.module_info()
+    |> Keyword.get_values(:behaviour)
+    |> List.flatten()
+    |> Enum.member?(Animal)
+    ```
 
 # `use`
 
@@ -1333,7 +1409,10 @@ Methods to achieve polymorphism:
     print(animal_sound(Dog()))  # Output: Woof
     ```
 
+### Elixir
+
 protocol
+behaviour
 
 ## Abstraction
 
@@ -1362,6 +1441,10 @@ class Dog(Animal):
 dog = Dog()
 print(dog.make_sound())  # Output: Woof!
 ```
+
+### Elixir
+
+behaviour
 
 ## Encapsulation
 

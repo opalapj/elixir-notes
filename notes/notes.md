@@ -1331,9 +1331,24 @@ print(dog.bark())  # Output: Woof!
 
 ### Elixir
 
-use
+First - `Elixir` is FP, not OOP!
 
-defdelegate
+> FWIW, one rule of thumb coming from OO land to Elixir Land. Everytime you
+start thinking you need to “inherit” something, instead think about composing
+something. Actually that rule works pretty well in OO Land as well.
+
+Use `use` with `delegate` for inheritance at functions level.
+
+More:
+- https://elixirforum.com/t/inheritance-in-elixir/58085
+- https://stackoverflow.com/questions/35302208/how-do-you-extend-inherit-an-elixir-module
+- https://blixtdev.com/dont-do-this-object-oriented-inheritance-in-elixir-with-macros/
+
+Use composition for inheritance at structs level.
+
+More:
+- https://elixirforum.com/t/a-sort-of-inheritance-for-struct/942
+- https://stackoverflow.com/questions/32847464/struct-reuse-for-modules-in-elixir
 
 ## Polymorphism
 
@@ -1457,8 +1472,7 @@ Methods to achieve polymorphism:
 
 ### Elixir
 
-protocol
-behaviour
+Use Protocol for data polymorphism and Behaviour for module polymorphism.
 
 ## Abstraction
 
@@ -1490,7 +1504,7 @@ print(dog.make_sound())  # Output: Woof!
 
 ### Elixir
 
-behaviour
+Use Behaviour for module abstraction.
 
 ## Encapsulation
 
@@ -1520,6 +1534,12 @@ acc = BankAccount()
 acc.deposit(100)
 print(acc.get_balance())  # Output: 100
 ```
+
+### Elixir
+
+The only thing I can think of is using struct as a class, its elements as
+attributes and functions as methods. Then these functions could read and write
+attributes, so it would act as a property in a way.
 
 # Anonymous functions (`fn`)
 

@@ -273,9 +273,9 @@ which provides a unified API for configuring each application.
 
 More:
 - https://hexdocs.pm/mix/1.18.3/Mix.html
-- https://hexdocs.pm/elixir/Application.html#module-tooling
-- https://hexdocs.pm/elixir/introduction-to-mix.html
-- https://hexdocs.pm/elixir/library-guidelines.html
+- https://hexdocs.pm/elixir/1.18.3/Application.html#module-tooling
+- https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html
+- https://hexdocs.pm/elixir/1.18.3/library-guidelines.html
 
 ## `mix.exs`
 
@@ -359,8 +359,8 @@ behaviour. This can be done by putting `use Application` in that module and
 implementing the `start/2` callback.
 
 More:
-- https://hexdocs.pm/elixir/supervisor-and-application.html#the-application-callback
-- https://hexdocs.pm/elixir/Application.html#module-the-application-callback-module
+- https://hexdocs.pm/elixir/1.18.3/supervisor-and-application.html#the-application-callback
+- https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-callback-module
 
 ## Project configuration (`project/0`)
 
@@ -394,11 +394,11 @@ is a file called `APP_NAME.app`.
 
 - `:extra_applications`, `:mod`
 
-    https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
+    https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Compile.App.html
 
 More:
-- https://hexdocs.pm/elixir/introduction-to-mix.html#project-compilation
-- https://hexdocs.pm/elixir/Application.html#module-the-application-environment
+- https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html#project-compilation
+- https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-environment
 
 ## Environments
 
@@ -477,7 +477,7 @@ mix deps.clean
 
 ## Versioning, requirements
 
-https://hexdocs.pm/elixir/Version.html
+https://hexdocs.pm/elixir/1.18.3/Version.html
 
 ## Useful tasks
 
@@ -720,7 +720,7 @@ for first argument. Local scope is already being created from name and
 arguments.
 
 More:
-- https://hexdocs.pm/elixir/1.18.4/writing-documentation.html#function-arguments
+- https://hexdocs.pm/elixir/1.18.3/writing-documentation.html#function-arguments
 
 ## Docs metadata
 
@@ -797,6 +797,25 @@ defp do_nothing do
 end
 ```
 
+# Debugging
+
+https://hexdocs.pm/elixir/1.18.3/debugging.html
+
+## `Inspect` protocol
+
+`Inspect` protocol is used by `Kernel.inspect/2` and `IO.inspect/2`.
+
+`IO.inspect/2` is really useful in debugging - it returns the item argument
+passed to it without affecting the behavior of the original code.
+
+`Kernel.inspect/2` returns string representing given argument accroding to
+`Inspect` protocol. It is useful e.g. to attach items to messages.
+
+> `Inspect` protocol (used by `Kernel.inspect/2`) has much more implementations
+than `String.Charts` protocol (used by `Kernel.to_string/1`).
+
+
+
 # Module structure
 
 More:
@@ -812,18 +831,18 @@ It is only possible to define a struct per module, as the struct is tied to the
 module itself.
 
 More:
-- https://hexdocs.pm/elixir/1.18.4/structs.html
-- https://hexdocs.pm/elixir/1.18.4/Kernel.html#defstruct/1
-- https://hexdocs.pm/elixir/1.18.4/Module.html#module-struct-attributes
-- https://hexdocs.pm/elixir/1.18.4/Kernel.SpecialForms.html#%25/2
+- https://hexdocs.pm/elixir/1.18.3/structs.html
+- https://hexdocs.pm/elixir/1.18.3/Kernel.html#defstruct/1
+- https://hexdocs.pm/elixir/1.18.3/Module.html#module-struct-attributes
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#%25/2
 
 ## Deriving
 
 More:
-- https://hexdocs.pm/elixir/1.18.4/Protocol.html#c:__deriving__/2
-- https://hexdocs.pm/elixir/1.18.4/Protocol.html#derive/3
-- https://hexdocs.pm/elixir/1.18.4/Inspect.html#module-deriving
-- https://hexdocs.pm/iex/1.18.4/IEx.Info.html
+- https://hexdocs.pm/elixir/1.18.3/Protocol.html#c:__deriving__/2
+- https://hexdocs.pm/elixir/1.18.3/Protocol.html#derive/3
+- https://hexdocs.pm/elixir/1.18.3/Inspect.html#module-deriving
+- https://hexdocs.pm/iex/1.18.3/IEx.Info.html
 
 ## Matching structs against maps
 
@@ -906,8 +925,8 @@ similar to interfaces or abstract base classes in other languages. We can add as
 many implementations as we like using `defimpl/2`.
 
 More:
-- https://hexdocs.pm/elixir/1.17.3/protocols.html#content
-- https://hexdocs.pm/elixir/1.18.4/Protocol.html
+- https://hexdocs.pm/elixir/1.18.3/protocols.html#content
+- https://hexdocs.pm/elixir/1.18.3/Protocol.html
 
 ## Defining
 
@@ -1235,7 +1254,7 @@ functions, setting a module state, etc.
 
 More:
 - https://hexdocs.pm/elixir/1.18.3/alias-require-and-import.html#use
-- https://hexdocs.pm/elixir/Kernel.html#use/2
+- https://hexdocs.pm/elixir/1.18.3/Kernel.html#use/2
 
 # Metaprogramming
 
@@ -1544,10 +1563,10 @@ attributes, so it would act as a property in a way.
 # Anonymous functions (`fn`)
 
 More:
-- https://hexdocs.pm/elixir/1.18.4/anonymous-functions.html
-- https://hexdocs.pm/elixir/1.18.4/Function.html
-- https://hexdocs.pm/elixir/1.18.4/Kernel.SpecialForms.html#fn/1
-- https://hexdocs.pm/elixir/1.18.4/Kernel.SpecialForms.html#&/1
+- https://hexdocs.pm/elixir/1.18.3/anonymous-functions.html
+- https://hexdocs.pm/elixir/1.18.3/Function.html
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#fn/1
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#&/1
 
 ## Capture operator (`&`) and placeholders (`&1, &2, ...`)
 
@@ -1675,7 +1694,7 @@ More:
 
 ## Scripting mode (`.ex` vs `.exs`)
 
-https://hexdocs.pm/elixir/1.18.4/modules-and-functions.html#scripting-mode
+https://hexdocs.pm/elixir/1.18.3/modules-and-functions.html#scripting-mode
 
 ## Matching struct name (`%_{}`)
 
@@ -1718,7 +1737,7 @@ More:
 
 ## `binding`
 
-https://hexdocs.pm/elixir/Kernel.html#binding/1
+https://hexdocs.pm/elixir/1.18.3/Kernel.html#binding/1
 
 ## `:sys.get_state`
 
@@ -1733,7 +1752,7 @@ all possible error cases without the full context of when and how they can
 happen.
 
 More:
-- https://hexdocs.pm/elixir/1.17.3/try-catch-and-rescue.html#fail-fast-let-it-crash
+- https://hexdocs.pm/elixir/1.18.3/try-catch-and-rescue.html#fail-fast-let-it-crash
 
 ## `nil`
 

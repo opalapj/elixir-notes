@@ -814,7 +814,40 @@ passed to it without affecting the behavior of the original code.
 > `Inspect` protocol (used by `Kernel.inspect/2`) has much more implementations
 than `String.Charts` protocol (used by `Kernel.to_string/1`).
 
+## `Kernel.dbg/2`
 
+It prints the value passed to it and returns it (just like `IO.inspect/2`), but
+it also prints the code and location.
+
+## `dbg` & `IEx`
+
+https://hexdocs.pm/elixir/1.18.3/Kernel.html#dbg/2-dbg-inside-iex
+
+> `--dbg pry` does not work with executing `.iex.exs` script implicity:
+>
+> ```bash
+> $ iex --dbg pry -S mix
+> ```
+>
+> But it does work explicity:
+>
+> ```bash
+> $ iex --dbg pry -S mix run .iex.exs
+> ```
+
+## Breakpoints
+
+https://hexdocs.pm/iex/IEx.html#break!/2
+
+> `.iex.exs` could be very useful to declare breakpoints.
+
+## `:observer` app from `Erlang`
+
+https://www.erlang.org/doc/apps/debugger/api-reference.html
+
+## `Logger` app from `Elixir`
+
+https://hexdocs.pm/logger/1.18.4/Logger.html
 
 # Module structure
 
@@ -1776,5 +1809,6 @@ nil
 - generic - ogólny
 - inheritance - dziedziczenie
 - provision - dostarczanie (czegoś), zaopatrywanie (w coś)
+- pry - węszyć, wścibiać nos, wtrącać się
 - specific - konkrektny
 - suitability - stosowność, odpowiedniość, nadawanie się (do czegoś)

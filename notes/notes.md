@@ -400,7 +400,53 @@ More:
 - https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html#project-compilation
 - https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-environment
 
-## Environments
+## Application environment
+
+Each application has its own environment. The environment is a keyword list that
+maps atoms to terms. Note that this environment is unrelated to the operating
+system environment.
+
+By default, the environment of an application is an empty list.
+
+Application's environment configurations:
+
+- default - `:env` key in application configuration:
+
+    ```elixir
+    def application do
+      [env: [db_host: "localhost"]]
+    end
+    ```
+
+- `config/config.exs` - this file is read at build time, before we compile our
+application and before we even load our dependencies. This means we can't access
+the code in our application nor in our dependencies. However, it means we can
+control how they are compiled.
+
+- `Application.put_env/4` - at compile time.
+
+- `config/runtime.exs` - this file is read after our application and
+dependencies are compiled and therefore it can configure how our application
+works at runtime. If you want to read system environment variables(via
+`System.get_env/1`) or any sort of external configuration, this is
+the appropriate place to do so.
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/config-and-releases.html#application-environment
+- https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-environment
+- https://hexdocs.pm/elixir/1.18.3/Config.html
+- https://hexdocs.pm/mix/1.18.3/Mix.html#module-configuration
+- https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Compile.App.html
+- https://hexdocs.pm/elixir/1.18.3/design-anti-patterns.html#using-application-configuration-for-libraries
+
+### Get environments of all started apps
+
+```bash
+iex> Application.started_applications()
+iex> |> Enum.each(fn {app, _, _} -> IO.puts([inspect(app), " >>> ", inspect(Application.get_all_env(app), pretty: true)]) end)
+```
+
+## Project environments
 
 More:
 - https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html#environments

@@ -1,0 +1,2 @@
+- check elixir -e commands in Ubuntu :99
+- 

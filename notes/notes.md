@@ -893,7 +893,327 @@ https://www.erlang.org/doc/apps/debugger/api-reference.html
 
 ## `Logger` app from `Elixir`
 
-https://hexdocs.pm/logger/1.18.4/Logger.html
+https://hexdocs.pm/logger/1.18.3/Logger.html
+
+# Logging
+
+> This application is mostly a wrapper around `Erlang`'s `:logger`
+functionality, to provide message translation and formatting to `Elixir` terms.
+
+Provides all 7 syslog levels, although `debug`, `info`, `warning` and `error`
+are the most commonly used.
+
+More:
+- https://hexdocs.pm/logger/1.18.3/Logger.html
+- https://www.erlang.org/doc/apps/kernel/logger.html
+- https://www.erlang.org/doc/apps/kernel/logger_chapter.html
+- https://www.erlang.org/doc/apps/kernel/logger_std_h
+- https://www.erlang.org/doc/apps/kernel/logger_disk_log_h
+
+## Loggers
+
+By default, the `Kernel` application (`Erlang`) installs one `logger` (named
+`primary`) and one log `handler` (named `default`) at system start.
+`Default handler` receives and processes standard log events produced by the
+`Erlang` runtime system, standard behaviours and different `Erlang/OTP`
+applications. The log events are by default printed to the terminal.
+
+When `Logger` starts (`Elixir`), it configures `primary logger` and
+`default handler` from `Erlang` to translate and format `Elixir` terms.
+
+> Compared to `Python`, where multiple loggers (per module) are most commonly
+used, `Elixir` has only one logger. For configuration, e.g. module or
+application log level in `Elixir`, the `API` (`Logger.put_module_level/2`,
+`Logger.put_application_level/2`) and `module_levels` key
+(`:logger.get_config.module_levels`) are used instead of logger configuration
+for a given module or package, such as in `Python`.
+
+## Handlers
+
+The following built-in handlers exist:
+
+- `logger_std_h` - default handler used by `OTP`. Multiple instances can be
+started, and each instance will write log events to a given destination,
+terminal or file
+
+- `logger_disk_log_h` - behaves much like `logger_std_h`, except it uses
+disk_log as its destination
+
+## Configuration
+
+1. Step - `Kernel` application environment - `logger` and `logger_level` keys
+2. Step - configuration in `Erlang` source code based on 1. step
+3. Step - `Logger` application environment via `config` files
+4. Step - configuration in `Elixir` source code based on previous steps
+
+Final configuration could be check using `:logger.get_config/0` function.
+
+```bash
+erl> application:get_all_env(kernel).
+erl> application:get_env(kernel, logger).
+erl> application:get_env(kernel, logger_level).
+erl> logger:get_config().
+
+iex> Application.get_all_env(:kernel)
+iex> Application.get_env(:kernel, :logger)
+iex> Application.get_env(:kernel, :logger_level)
+iex> :logger.get_config()
+```
+
+### Loggers
+
+At system start, `primary logger` is configured through `Kernel` configuration
+parameters.
+
+The primary log level can be overridden by a log level configured per module.
+This is to, for instance, allow more verbose logging from a specific part of
+the system.
+
+`Primary logger` configuration:
+
+- defaults for `Erlang` (`logger:get_primary_config().`):
+    - `level: :notice`
+
+        > The initial value of this option is set by the `Kernel` configuration
+        > parameter `logger_level`
+        >
+        > ```bash
+        > erl> application:get_env(kernel, logger_level).
+        > ```
+
+    - `filter_default: :log`
+    - `filters: []`
+    - `metadata: %{}`
+
+- defaults for `Elixir` (`:logger.get_primary_config()`):
+    - `level: :debug`
+
+        > Value overwritten in source code (not by application environment).
+
+    - `filter_default: :log`
+    - `filters: [...]`
+
+        > Value overwritten in source code (not by application environment).
+
+    - `metadata: %{}`
+
+Custom configuration:
+
+- to configure level:
+
+    ```elixir
+    config :logger, level: :warning
+    ```
+
+### Handlers
+
+By configuration, you can also modify or disable the default handler, replace
+it by a custom handler, and install additional handlers.
+
+`Default handler` configuration:
+
+- defaults for `Erlang` (`logger:get_handler_config(default).`):
+    - `id: :default`
+
+        > The initial value of this option is set by the `Kernel` configuration
+        > parameter `logger` - especially `HandlerId` value from
+        > `{handler, HandlerId, Module, HandlerConfig}`
+        >
+        > ```bash
+        > erl> application:get_env(kernel, logger).
+        > ```
+
+    - `module: :logger_std_h`
+
+        > The initial value of this option is set by the `Kernel` configuration
+        > parameter `logger` - especially `Module` value from
+        > `{handler, HandlerId, Module, HandlerConfig}`
+        >
+        > ```bash
+        > erl> application:get_env(kernel, logger).
+        > ```
+
+    - `level: :all`
+    - `filter_default: :stop`
+    - `filters: [...]`
+    - `formatter: {...}`
+    - `config: %{...}`
+
+        > Configuration data related to a specific handler implementation.
+        > The configuration for the built-in handlers is described in the
+        > `logger_std_h` and `logger_disk_log_h` manual pages.
+
+- defaults for `Elixir` (`:logger.get_handler_config(:default)`):
+    - `id: :default`
+
+        > The initial value of this option is set by the `Kernel` configuration
+        > parameter `logger` - especially `HandlerId` value from
+        > `{handler, HandlerId, Module, HandlerConfig}`
+        >
+        > ```bash
+        > erl> application:get_env(kernel, logger).
+        > ```
+
+    - `module: :logger_std_h`
+
+        > The initial value of this option is set by the `Kernel` configuration
+        > parameter `logger` - especially `Module` value from
+        > `{handler, HandlerId, Module, HandlerConfig}`
+        >
+        > ```bash
+        > erl> application:get_env(kernel, logger).
+        > ```
+
+    - `level: :all`
+    - `filter_default: :log`
+    - `filters: [...]`
+    - `formatter: {...}`
+    - `config: %{...}`
+
+        > Configuration data related to a specific handler implementation.
+        > The configuration for the built-in handlers is described in the
+        > `logger_std_h` and `logger_disk_log_h` manual pages.
+
+Custom configuration:
+
+- to configure default handler:
+
+    ```elixir
+    # The `logger_std_h` configured as file handler.
+    config :logger, :default_handler,
+      level: :info,
+      config: [
+        file: ~c"info.log",
+        type: :file,
+        modes: [:write]
+      ]
+
+    # Use of `logger_disk_log_h`.
+    config :logger, :default_handler,
+      level: :error,
+      module: :logger_disk_log_h,
+      config: [
+        file: ~c"error.log",
+        type: :halt
+      ]
+    ```
+
+- to disable default handler:
+
+    ```elixir
+    config :logger, :default_handler, false
+    ```
+
+- to add custom handler:
+
+    ```elixir
+    # config.exs
+    config :nercast, :logger, [
+      {:handler, :custom, :logger_std_h,
+       %{
+         formatter:
+           Logger.Formatter.new(
+             colors: [
+               warning: :magenta,
+               error: :green
+             ]
+           )
+       }}
+    ]
+
+    # application callback module
+    use Application
+
+    @impl true
+    def start(_type, _args) do
+      ...
+      case Supervisor.start_link(children, opts) do
+        {:ok, pid} ->
+          add_custom_handler()
+          {:ok, pid}
+
+        error ->
+          error
+      end
+    end
+
+    defp add_custom_handler do
+      __MODULE__
+      |> Application.get_application()
+      |> Logger.add_handlers()
+    end
+
+    # or:
+
+    use Application
+
+    @impl true
+    def start(_type, _args) do
+      add_custom_handler()
+      ...
+      Supervisor.start_link(children, opts)
+    end
+
+    defp add_custom_handler do
+      __MODULE__
+      |> Application.get_application()
+      |> Logger.add_handlers()
+    end
+    ```
+
+## Configuring logging for a library
+
+According to and following: https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
+
+Counterpart for `NullHandler` in `Python`:
+
+```elixir
+# application callback module
+use Application
+
+@impl true
+def start(_type, _args) do
+  disable_logging()
+  ...
+  Supervisor.start_link(children, opts)
+end
+
+defp disable_logging do
+  __MODULE__
+  |> Application.get_application()
+  |> Logger.put_application_level(:none)
+end
+
+# or:
+
+use Application
+
+@impl true
+def start(_type, _args) do
+  ...
+  case Supervisor.start_link(children, opts) do
+    {:ok, pid} ->
+      disable_logging()
+      {:ok, pid}
+
+    error ->
+      error
+  end
+end
+
+defp disable_logging do
+  __MODULE__
+  |> Application.get_application()
+  |> Logger.put_application_level(:none)
+end
+```
+
+Then logging for library can be configure by application developer:
+
+```elixir
+# iex.exs
+Logger.put_application_level(appname, level)
+```
 
 # Module structure
 

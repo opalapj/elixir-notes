@@ -885,7 +885,7 @@ https://hexdocs.pm/elixir/1.18.3/Kernel.html#dbg/2-dbg-inside-iex
 
 https://hexdocs.pm/iex/IEx.html#break!/2
 
-> `.iex.exs` could be very useful to declare breakpoints.
+> `.iex.exs` or `config/runtime.exs` could be very useful to declare breakpoints.
 
 ## `:observer` app from `Erlang`
 

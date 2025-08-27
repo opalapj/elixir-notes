@@ -2033,11 +2033,162 @@ In some cases brackets can be ommited, e.g.:
     &(&1; &2)
     ```
 
-# String
+# `Bitstrings`, `binaries`, `strings`, and `charlists`
 
-## Interpolation
+`Unicode` organizes all of the characters in its repertoire into *code charts*,
+and each character is given a unique numerical index. This numerical index is
+known as a `code point`.
+
+From character to `code point`, base decimal:
+
+```bash
+iex> ?p
+112
+iex> ?π
+960
+```
+
+From character to `code point`, base hexadecimal:
+
+```bash
+iex> IO.inspect(?p, base: :hex)
+0x70
+112
+iex> IO.inspect(?π, base: :hex)
+0x3C0
+960
+```
+
+From `code point` to character:
+
+```bash
+iex> "\u0070"
+"p"
+iex> "\u03C0"
+"π"
+```
+
+Whereas the `code point` is *what* we store, an `encoding` deals with *how*
+we store it: `encoding` is an implementation. In other words, we need a
+mechanism to convert the `code point` numbers into bytes so they can be stored
+in memory, written to disk, etc.
+
+`Elixir` uses `UTF-8` to encode its strings, which means that `code points`
+are encoded as a series of 8-bit bytes. `UTF-8` is a variable width character
+encoding that uses one to four bytes to store each `code point`. It is capable
+of encoding all valid `Unicode` `code points`.
+
+From character to `UTF-8` binaries:
+
+```bash
+iex> IO.inspect("p", binaries: :as_binaries)
+<<112>>
+"p"
+iex> IO.inspect("p", binaries: :as_binaries, base: :hex)
+<<0x70>>
+"p"
+iex> IO.inspect("π", binaries: :as_binaries)
+<<207, 128>>
+"π"
+iex> IO.inspect("π", binaries: :as_binaries, base: :hex)
+<<0xCF, 0x80>>
+"π"
+```
+
+Why "p" `Unicode` `code point` (`0x70`) is the same as `UTF-8` binaries
+(`<<0x70>>`) when "π" `Unicode` `code point` (`0x3C0`) is not the same as
+`UTF-8` binaries (`<<0xCF, 0x80>>`)?
+
+`Unicode` `code points` "p" (`U+0070`) and "π" (`U+03C0`) come from different
+ranges, according to `Unicode` -> `UTF-8` convertion method.
+
+```bash
+iex> IO.inspect(?p, base: :binary)
+0b1110000
+iex> IO.inspect(?π, base: :binary)
+0b1111000000
+960
+```
+
+"p" is represented by `1110000` (yyyzzzz)
+
+`UTF-8` binaries for this range: 0yyyzzzz
+
+```bash
+iex> <<0b01110000>>
+"p"
+```
+
+"π" is represented by `011 11000000` (xxx yyyyzzzz)
+
+`UTF-8` binaries for this range: 110xxxyy 10yyzzzz
+
+```bash
+iex> <<0b11001111, 0b10000000>>
+"π"
+```
+
+String could be created by composition of `UTF-8` binaries and `Unicode`
+`code point`:
+
+```bash
+iex> <<0x70, 0x69, 0x3A, 0x20>> <> "\u03c0"
+"pi: π"
+```
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/binaries-strings-and-charlists.html#unicode-and-code-points
+- https://hexdocs.pm/elixir/1.18.4/binaries-strings-and-charlists.html#utf-8-and-encodings
+- https://en.wikipedia.org/wiki/UTF-8#Description
+
+## `Bitstring`
+
+A `bitstring` is a fundamental data type in `Elixir`, denoted with the `<<>>`
+syntax. A `bitstring` is a contiguous sequence of bits in memory.
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/binaries-strings-and-charlists.html#bitstrings
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#%3C%3C%3E%3E/1
+
+## `Binary`
+
+A `binary` is a `bitstring` where the number of bits is divisible by 8. That
+means that every `binary` is a `bitstring`, but not every `bitstring` is a
+`binary`.
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/binaries-strings-and-charlists.html#binaries
+
+## `String`
+
+A `string` is a `UTF-8` encoded `binary`, where the code point for each
+character is encoded using 1 to 4 bytes. Thus every string is a binary, but due
+to the `UTF-8` standard encoding rules, not every binary is a valid string.
+
+Strings in `Elixir` are delimited by double quotes.
+
+### Interpolation
 
 https://hexdocs.pm/elixir/1.18.3/String.html#module-interpolation
+
+## `Charlist`
+
+A `charlist` is a list of integers where all the integers are valid code points.
+However, the list is only printed as a sigil if all code points are within the
+`ASCII` range:
+
+```bash
+iex> ~c"pi: π"
+[112, 105, 58, 32, 960]
+iex> ~c"pi: "
+~c"pi: "
+iex> IO.inspect(~c"pi: π", charlists: :as_lists)
+[112, 105, 58, 32, 960]
+[112, 105, 58, 32, 960]
+iex> IO.inspect(~c"pi: ", charlists: :as_lists)
+[112, 105, 58, 32]
+~c"pi: "
+```
 
 # Keyword Lists vs Maps
 

@@ -1657,16 +1657,11 @@ More:
 
 # Metaprogramming
 
-There are five `Elixir` literals that, when quoted, return themselves (and not
-a tuple). They are:
+## Optional syntax
 
-```elixir
-:sum         #=> Atoms
-1.0          #=> Numbers
-[1, 2]       #=> Lists
-"strings"    #=> Strings
-{key, value} #=> Tuples with two elements
-```
+More:
+- https://hexdocs.pm/elixir/1.18.4/keywords-and-maps.html#do-blocks-and-keywords
+- https://hexdocs.pm/elixir/1.18.4/optional-syntax.html
 
 ## Quoting
 
@@ -1682,6 +1677,115 @@ iex> quote do: sum(1, 2, 3)
 `Elixir` syntax: `sum(1, 2, 3)`
 
 `AST` / `qouted expression`: `{:sum, [], [1, 2, 3]}`
+
+There are five `Elixir` literals that, when quoted, return themselves (and not
+a tuple). They are:
+
+```elixir
+:sum         #=> Atoms
+1.0          #=> Numbers
+[1, 2]       #=> Lists (also keyword lists!)
+"strings"    #=> Strings
+{key, value} #=> Tuples with two elements
+```
+
+In general, the tuples above are structured according to the following format:
+
+```elixir
+{atom | tuple, list, list | atom}
+```
+
+- The first element is an `atom` or another `tuple` in the same representation;
+- The second element is a `keyword list` containing metadata, like numbers and
+contexts;
+- The third element is either a `list` of arguments for the function call or
+an `atom`. When this element is an `atom`, it means the tuple represents a
+variable.
+
+Examples:
+
+```bash
+iex> quote do: +1
+{:+, [context: Elixir, imports: [{1, Kernel}, {2, Kernel}]], [1]}
+
+# Third element is an atom.
+iex> quote do: variable
+{:variable, [], Elixir}
+
+# First element is another tuple.
+iex> quote do: String.upcase("foo")
+{{:., [], [{:__aliases__, [alias: false], [:String]}, :upcase]}, [], ["foo"]}
+```
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/quote-and-unquote.html#quoting
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#quote/2
+
+### Textual code representation
+
+Sometimes, when working with quoted expressions, it may be useful to get the
+textual code representation back. This can be done with `Macro.to_string/1`:
+
+```bash
+iex> Macro.to_string(quote do: sum(1, 2 + 3, 4))
+"sum(1, 2 + 3, 4)"
+```
+
+### Binding and unquote fragments
+
+`Elixir` quote/unquote mechanisms provide a functionality called
+*unquote fragments*. *Unquote fragments* provide an easy way to generate
+functions on the fly.
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#quote/2-binding-and-unquote-fragments
+
+## Unquoting
+
+Unquotes the given expression inside a quoted expression.
+
+This function expects a valid `Elixir AST`, also known as quoted expression,
+as argument. If you would like to unquote any value, such as a map or
+a four-element tuple, you should call `Macro.escape/1` before unquoting.
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/quote-and-unquote.html#unquoting
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#unquote/1
+- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#unquote_splicing/1
+- https://hexdocs.pm/elixir/1.18.3/Macro.html#escape/2
+
+## Macros
+
+Macros are compile-time constructs that receive` Elixir's AST` as input and
+return `Elixir's AST` as output.
+
+Macros do not evaluate their arguments. Instead, they receive the arguments
+as quoted expressions which are then transformed into other quoted expressions:
+
+```elixir
+defmodule Meta do
+  def function(arg) do
+    IO.inspect(arg)
+  end
+
+  defmacro macro(arg) do
+    IO.inspect(arg)
+  end
+end
+```
+
+```bash
+iex> Meta.function({1, 2, 3})
+{1, 2, 3}
+{1, 2, 3}
+
+iex> Meta.macro({1, 2, 3})
+{:{}, [line: 3], [1, 2, 3]}
+{1, 2, 3}
+```
+
+More:
+- https://hexdocs.pm/elixir/1.18.3/Macro.html
 
 # OOP pillars vs functional programming
 

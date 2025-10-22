@@ -134,8 +134,8 @@ In `Erlang` environment:
 - from `Erlang` e.g. atom `code`  
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/alias-require-and-import.html#understanding-aliases
-- https://hexdocs.pm/elixir/1.18.3/syntax-reference.html#aliases
+- https://hexdocs.pm/elixir/alias-require-and-import.html#understanding-aliases
+- https://hexdocs.pm/elixir/syntax-reference.html#aliases
 
 ## Standalone modules
 
@@ -216,7 +216,7 @@ In the `Elixir` some of the functions from `Kernel` module are inlined by the
 > ```
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/Kernel.html#module-inlining
+- https://hexdocs.pm/elixir/Kernel.html#module-inlining
 
 ## AST
 
@@ -272,10 +272,10 @@ which provides a unified API for configuring each application.
 `Elixir` projects, managing its dependencies, and more.
 
 More:
-- https://hexdocs.pm/mix/1.18.3/Mix.html
-- https://hexdocs.pm/elixir/1.18.3/Application.html#module-tooling
-- https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html
-- https://hexdocs.pm/elixir/1.18.3/library-guidelines.html
+- https://hexdocs.pm/mix/Mix.html
+- https://hexdocs.pm/elixir/Application.html#module-tooling
+- https://hexdocs.pm/elixir/introduction-to-mix.html
+- https://hexdocs.pm/elixir/library-guidelines.html
 
 ## `mix.exs`
 
@@ -294,7 +294,7 @@ the command line:
 - `mix run` - runs a particular command inside the project
 
 More:
-- https://hexdocs.pm/mix/1.18.3/Mix.html
+- https://hexdocs.pm/mix/Mix.html
 - https://hex.pm/docs/publish#example-mixexs-file
 
 ## Understanding `iex -S mix`
@@ -342,7 +342,7 @@ iex> Mix.compilers()
 ```
 
 More:
-- https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Compile.html
+- https://hexdocs.pm/mix/Mix.Tasks.Compile.html
 
 ## Starting applications
 
@@ -359,8 +359,8 @@ behaviour. This can be done by putting `use Application` in that module and
 implementing the `start/2` callback.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/supervisor-and-application.html#the-application-callback
-- https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-callback-module
+- https://hexdocs.pm/elixir/supervisor-and-application.html#the-application-callback
+- https://hexdocs.pm/elixir/Application.html#module-the-application-callback-module
 
 ## Project configuration (`project/0`)
 
@@ -370,22 +370,22 @@ configuration for the project.
 
 - `:app` (required), `:version` (required)
 
-    https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Compile.App.html
+    https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
 
 - `:elixir`
 
-    https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Loadpaths.html#module-configuration
+    https://hexdocs.pm/mix/Mix.Tasks.Loadpaths.html#module-configuration
 
 - `:start_permanent`
 
-    https://hexdocs.pm/mix/1.18.3/Mix.Tasks.App.Start.html
+    https://hexdocs.pm/mix/Mix.Tasks.App.Start.html
 
 - `:deps`
 
-    https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Deps.html
+    https://hexdocs.pm/mix/Mix.Tasks.Deps.html
 
 More:
-- https://hexdocs.pm/mix/1.18.3/Mix.Project.html
+- https://hexdocs.pm/mix/Mix.Project.html
 
 ## Application configuration (`application/0`)
 
@@ -394,11 +394,11 @@ is a file called `APP_NAME.app`.
 
 - `:extra_applications`, `:mod`
 
-    https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Compile.App.html
+    https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html#project-compilation
-- https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-environment
+- https://hexdocs.pm/elixir/introduction-to-mix.html#project-compilation
+- https://hexdocs.pm/elixir/Application.html#module-the-application-environment
 
 ## Application environment
 
@@ -432,12 +432,12 @@ works at runtime. If you want to read system environment variables(via
 the appropriate place to do so.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/config-and-releases.html#application-environment
-- https://hexdocs.pm/elixir/1.18.3/Application.html#module-the-application-environment
-- https://hexdocs.pm/elixir/1.18.3/Config.html
-- https://hexdocs.pm/mix/1.18.3/Mix.html#module-configuration
-- https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Compile.App.html
-- https://hexdocs.pm/elixir/1.18.3/design-anti-patterns.html#using-application-configuration-for-libraries
+- https://hexdocs.pm/elixir/config-and-releases.html#application-environment
+- https://hexdocs.pm/elixir/Application.html#module-the-application-environment
+- https://hexdocs.pm/elixir/Config.html
+- https://hexdocs.pm/mix/Mix.html#module-configuration
+- https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
+- https://hexdocs.pm/elixir/design-anti-patterns.html#using-application-configuration-for-libraries
 
 ### Get environments of all started apps
 
@@ -449,8 +449,8 @@ iex> |> Enum.each(fn {app, _, _} -> IO.puts([inspect(app), " >>> ", inspect(Appl
 ## Project environments
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/introduction-to-mix.html#environments
-- https://hexdocs.pm/mix/1.18.3/Mix.html#module-environments
+- https://hexdocs.pm/elixir/introduction-to-mix.html#environments
+- https://hexdocs.pm/mix/Mix.html#module-environments
 
 ## Directory structure
 
@@ -458,7 +458,7 @@ More:
 - https://www.erlang.org/doc/system/applications.html#directory-structure
 - https://www.erlang.org/doc/apps/kernel/code#priv_dir/1
 - https://www.erlang.org/doc/apps/kernel/code#lib_dir/2
-- https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Release.html#module-directory-structure
+- https://hexdocs.pm/mix/Mix.Tasks.Release.html#module-directory-structure
 
 ## `Hex`
 
@@ -487,7 +487,7 @@ Dependencies must be specified in the `mix.exs` file.
 ```
 
 More:
-- https://hexdocs.pm/mix/1.18.3/Mix.Tasks.Deps.html
+- https://hexdocs.pm/mix/Mix.Tasks.Deps.html
 
 ### List
 
@@ -523,7 +523,7 @@ mix deps.clean
 
 ## Versioning, requirements
 
-https://hexdocs.pm/elixir/1.18.3/Version.html
+https://hexdocs.pm/elixir/Version.html
 
 ## Useful tasks
 
@@ -536,23 +536,23 @@ https://hexdocs.pm/elixir/1.18.3/Version.html
 
 # `IEx` - interactive shell
 
-https://hexdocs.pm/iex/1.18.3/IEx.html
+https://hexdocs.pm/iex/IEx.html
 
 ## `h()`
 
-https://hexdocs.pm/iex/1.18.3/IEx.html#module-helpers
+https://hexdocs.pm/iex/IEx.html#module-helpers
 
 ## `.iex.exs`
 
-https://hexdocs.pm/iex/1.18.3/IEx.html#module-the-iex-exs-file
+https://hexdocs.pm/iex/IEx.html#module-the-iex-exs-file
 
 ## `#iex:break`
 
-https://hexdocs.pm/iex/1.18.3/IEx.html#module-expressions-in-iex
+https://hexdocs.pm/iex/IEx.html#module-expressions-in-iex
 
 ## `IEx.Info.info/1`
 
-https://hexdocs.pm/iex/1.18.3/IEx.Info.html
+https://hexdocs.pm/iex/IEx.Info.html
 
 # Typespecs
 
@@ -562,8 +562,8 @@ There are 3 types of typespecs (actually module attributes):
 - `@callback`, provides a specification for a behaviour callback
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/typespecs.html
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-typespec-attributes
+- https://hexdocs.pm/elixir/typespecs.html
+- https://hexdocs.pm/elixir/Module.html#module-typespec-attributes
 
 ## Getting typespecs
 
@@ -648,7 +648,7 @@ end
 
 Source:
 
-- https://hexdocs.pm/elixir/1.18.3/typespecs.html#defining-a-specification
+- https://hexdocs.pm/elixir/typespecs.html#defining-a-specification
 
 Explanation:
 
@@ -704,10 +704,10 @@ tools like `ExDoc`:
     ```
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/writing-documentation.html
-- https://hexdocs.pm/elixir/1.18.3/module-attributes.html
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-moduledoc
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-doc-and-typedoc
+- https://hexdocs.pm/elixir/writing-documentation.html
+- https://hexdocs.pm/elixir/module-attributes.html
+- https://hexdocs.pm/elixir/Module.html#module-moduledoc
+- https://hexdocs.pm/elixir/Module.html#module-doc-and-typedoc
 
 ## Getting docs
 
@@ -766,13 +766,13 @@ for first argument. Local scope is already being created from name and
 arguments.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/writing-documentation.html#function-arguments
+- https://hexdocs.pm/elixir/writing-documentation.html#function-arguments
 
 ## Docs metadata
 
 Source:
 
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-doc-and-typedoc
+- https://hexdocs.pm/elixir/Module.html#module-doc-and-typedoc
 
 Explanation:
 
@@ -845,7 +845,7 @@ end
 
 # Debugging
 
-https://hexdocs.pm/elixir/1.18.3/debugging.html
+https://hexdocs.pm/elixir/debugging.html
 
 ## `Inspect` protocol
 
@@ -867,7 +867,7 @@ it also prints the code and location.
 
 ## `dbg` & `IEx`
 
-https://hexdocs.pm/elixir/1.18.3/Kernel.html#dbg/2-dbg-inside-iex
+https://hexdocs.pm/elixir/Kernel.html#dbg/2-dbg-inside-iex
 
 > `--dbg pry` does not work with executing `.iex.exs` script implicity:
 >
@@ -893,7 +893,7 @@ https://www.erlang.org/doc/apps/debugger/api-reference.html
 
 ## `Logger` app from `Elixir`
 
-https://hexdocs.pm/logger/1.18.3/Logger.html
+https://hexdocs.pm/logger/Logger.html
 
 # Logging
 
@@ -904,7 +904,7 @@ Provides all 7 syslog levels, although `debug`, `info`, `warning` and `error`
 are the most commonly used.
 
 More:
-- https://hexdocs.pm/logger/1.18.3/Logger.html
+- https://hexdocs.pm/logger/Logger.html
 - https://www.erlang.org/doc/apps/kernel/logger.html
 - https://www.erlang.org/doc/apps/kernel/logger_chapter.html
 - https://www.erlang.org/doc/apps/kernel/logger_std_h
@@ -1218,8 +1218,8 @@ Logger.put_application_level(appname, level)
 # Module structure
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/Module.html#c:__info__/1
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-generated-functions
+- https://hexdocs.pm/elixir/Module.html#c:__info__/1
+- https://hexdocs.pm/elixir/Module.html#module-generated-functions
 
 # Struct
 
@@ -1230,18 +1230,18 @@ It is only possible to define a struct per module, as the struct is tied to the
 module itself.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/structs.html
-- https://hexdocs.pm/elixir/1.18.3/Kernel.html#defstruct/1
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-struct-attributes
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#%25/2
+- https://hexdocs.pm/elixir/structs.html
+- https://hexdocs.pm/elixir/Kernel.html#defstruct/1
+- https://hexdocs.pm/elixir/Module.html#module-struct-attributes
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%25/2
 
 ## Deriving
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/Protocol.html#c:__deriving__/2
-- https://hexdocs.pm/elixir/1.18.3/Protocol.html#derive/3
-- https://hexdocs.pm/elixir/1.18.3/Inspect.html#module-deriving
-- https://hexdocs.pm/iex/1.18.3/IEx.Info.html
+- https://hexdocs.pm/elixir/Protocol.html#c:__deriving__/2
+- https://hexdocs.pm/elixir/Protocol.html#derive/3
+- https://hexdocs.pm/elixir/Inspect.html#module-deriving
+- https://hexdocs.pm/iex/IEx.Info.html
 
 ## Matching structs against maps
 
@@ -1324,8 +1324,8 @@ similar to interfaces or abstract base classes in other languages. We can add as
 many implementations as we like using `defimpl/2`.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/protocols.html#content
-- https://hexdocs.pm/elixir/1.18.3/Protocol.html
+- https://hexdocs.pm/elixir/protocols.html#content
+- https://hexdocs.pm/elixir/Protocol.html
 
 ## Defining
 
@@ -1514,7 +1514,7 @@ A `behaviour module` defines a set of functions and macros (referred to as
 `callbacks`) that `callback modules` (implementing that behaviour) must export.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/typespecs.html#behaviours
+- https://hexdocs.pm/elixir/typespecs.html#behaviours
 
 ## Defining callbacks
 
@@ -1557,12 +1557,12 @@ Furthermore, with `@impl` you can also make sure that you are implementing
 the correct callbacks from the given behaviour in an explicit manner.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/typespecs.html#implementing-behaviours
-- https://hexdocs.pm/elixir/1.18.3/Module.html#module-impl-since-v1-5-0
+- https://hexdocs.pm/elixir/typespecs.html#implementing-behaviours
+- https://hexdocs.pm/elixir/Module.html#module-impl-since-v1-5-0
 
 ## Optional callbacks
 
-https://hexdocs.pm/elixir/1.18.3/typespecs.html#optional-callbacks
+https://hexdocs.pm/elixir/typespecs.html#optional-callbacks
 
 ## `@behaviour` enclosed in `__using__/1` (`use` use-cases)
 
@@ -1571,8 +1571,8 @@ https://hexdocs.pm/elixir/1.18.3/typespecs.html#optional-callbacks
 
 Examples:
 
-- https://hexdocs.pm/elixir/1.18.3/GenServer.html
-- https://hexdocs.pm/elixir/1.18.3/Application.html
+- https://hexdocs.pm/elixir/GenServer.html
+- https://hexdocs.pm/elixir/Application.html
 
 ## Extra
 
@@ -1652,8 +1652,8 @@ current module, such as importing itself or other modules, defining new
 functions, setting a module state, etc.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/alias-require-and-import.html#use
-- https://hexdocs.pm/elixir/1.18.3/Kernel.html#use/2
+- https://hexdocs.pm/elixir/alias-require-and-import.html#use
+- https://hexdocs.pm/elixir/Kernel.html#use/2
 
 # Metaprogramming
 
@@ -1718,8 +1718,8 @@ iex> quote do: String.upcase("foo")
 ```
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/quote-and-unquote.html#quoting
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#quote/2
+- https://hexdocs.pm/elixir/quote-and-unquote.html#quoting
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2
 
 ### Textual code representation
 
@@ -1738,7 +1738,7 @@ iex> Macro.to_string(quote do: sum(1, 2 + 3, 4))
 functions on the fly.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#quote/2-binding-and-unquote-fragments
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2-binding-and-unquote-fragments
 
 ## Unquoting
 
@@ -1749,10 +1749,10 @@ as argument. If you would like to unquote any value, such as a map or
 a four-element tuple, you should call `Macro.escape/1` before unquoting.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/quote-and-unquote.html#unquoting
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#unquote/1
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#unquote_splicing/1
-- https://hexdocs.pm/elixir/1.18.3/Macro.html#escape/2
+- https://hexdocs.pm/elixir/quote-and-unquote.html#unquoting
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#unquote/1
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#unquote_splicing/1
+- https://hexdocs.pm/elixir/Macro.html#escape/2
 
 ## Macros
 
@@ -1785,7 +1785,7 @@ iex> Meta.macro({1, 2, 3})
 ```
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/Macro.html
+- https://hexdocs.pm/elixir/Macro.html
 
 # OOP pillars vs functional programming
 
@@ -2066,10 +2066,10 @@ attributes, so it would act as a property in a way.
 # Anonymous functions (`fn`)
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/anonymous-functions.html
-- https://hexdocs.pm/elixir/1.18.3/Function.html
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#fn/1
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#&/1
+- https://hexdocs.pm/elixir/anonymous-functions.html
+- https://hexdocs.pm/elixir/Function.html
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#fn/1
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#&/1
 
 ## Capture operator (`&`) and placeholders (`&1, &2, ...`)
 
@@ -2241,7 +2241,7 @@ iex> <<0x70, 0x69, 0x3A, 0x20>> <> "\u03c0"
 ```
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/binaries-strings-and-charlists.html#unicode-and-code-points
+- https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#unicode-and-code-points
 - https://hexdocs.pm/elixir/1.18.4/binaries-strings-and-charlists.html#utf-8-and-encodings
 - https://en.wikipedia.org/wiki/UTF-8#Description
 
@@ -2251,8 +2251,8 @@ A `bitstring` is a fundamental data type in `Elixir`, denoted with the `<<>>`
 syntax. A `bitstring` is a contiguous sequence of bits in memory.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/binaries-strings-and-charlists.html#bitstrings
-- https://hexdocs.pm/elixir/1.18.3/Kernel.SpecialForms.html#%3C%3C%3E%3E/1
+- https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#bitstrings
+- https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1
 
 ## `Binary`
 
@@ -2261,7 +2261,7 @@ means that every `binary` is a `bitstring`, but not every `bitstring` is a
 `binary`.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/binaries-strings-and-charlists.html#binaries
+- https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#binaries
 
 ## `String`
 
@@ -2273,7 +2273,7 @@ Strings in `Elixir` are delimited by double quotes.
 
 ### Interpolation
 
-https://hexdocs.pm/elixir/1.18.3/String.html#module-interpolation
+https://hexdocs.pm/elixir/String.html#module-interpolation
 
 ## `Charlist`
 
@@ -2341,14 +2341,14 @@ considered `truthy` except for `false` and `nil`. In particular, empty strings,
 the integer 0, and empty lists are all considered truthy in `Elixir`.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/Kernel.html#module-truthy-and-falsy-values
-- https://hexdocs.pm/elixir/1.18.3/basic-types.html#booleans-and-nil
+- https://hexdocs.pm/elixir/Kernel.html#module-truthy-and-falsy-values
+- https://hexdocs.pm/elixir/basic-types.html#booleans-and-nil
 
 # Miscellaneous
 
 ## Scripting mode (`.ex` vs `.exs`)
 
-https://hexdocs.pm/elixir/1.18.3/modules-and-functions.html#scripting-mode
+https://hexdocs.pm/elixir/modules-and-functions.html#scripting-mode
 
 ## Matching struct name (`%_{}`)
 
@@ -2386,12 +2386,12 @@ end
 `Registry.match/3`
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/pattern-matching.html
-- https://hexdocs.pm/elixir/1.18.3/Registry.html#match/3
+- https://hexdocs.pm/elixir/pattern-matching.html
+- https://hexdocs.pm/elixir/Registry.html#match/3
 
 ## `binding`
 
-https://hexdocs.pm/elixir/1.18.3/Kernel.html#binding/1
+https://hexdocs.pm/elixir/Kernel.html#binding/1
 
 ## `:sys.get_state`
 
@@ -2406,7 +2406,7 @@ all possible error cases without the full context of when and how they can
 happen.
 
 More:
-- https://hexdocs.pm/elixir/1.18.3/try-catch-and-rescue.html#fail-fast-let-it-crash
+- https://hexdocs.pm/elixir/try-catch-and-rescue.html#fail-fast-let-it-crash
 
 ## `nil`
 

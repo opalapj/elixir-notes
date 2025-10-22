@@ -427,7 +427,7 @@ control how they are compiled.
 
 - `config/runtime.exs` - this file is read after our application and
 dependencies are compiled and therefore it can configure how our application
-works at runtime. If you want to read system environment variables(via
+works at runtime. If you want to read system environment variables (via
 `System.get_env/1`) or any sort of external configuration, this is
 the appropriate place to do so.
 
@@ -1211,9 +1211,153 @@ end
 Then logging for library can be configure by application developer:
 
 ```elixir
-# iex.exs
+# .iex.exs
 Logger.put_application_level(appname, level)
 ```
+
+## Removing console backend globally
+
+```elixir
+config :logger, backends: []
+```
+
+# Testing
+
+A basic setup for `ExUnit` is shown below:
+
+```elixir
+# basic.exs
+ExUnit.start()
+
+defmodule MyModuleTest do
+  use ExUnit.Case
+
+  test "the truth" do
+    assert true
+  end
+end
+```
+
+## Helpful options for `ExUnit` start
+
+- `trace: true`
+- `seed: 0`
+
+More:
+- https://hexdocs.pm/ex_unit/ExUnit.html#configure/1-options
+
+## Best practices
+
+- grouping tests by function using `describe`
+- define `setup` as a series of functions
+
+## Execution
+
+### Using `mix` within `mix` project
+
+```bash
+$ mix test
+```
+
+### Using `elixir`
+
+```bash
+$ elixir basic.exs
+```
+
+### Using `iex` and `.iex.exs` file
+
+```elixir
+# .iex.exs
+ExUnit.run()
+```
+
+```bash
+$ iex basic.exs
+```
+
+## Breakpoints
+
+### Using `-b/--breakpoints` flag
+
+```bash
+$ iex -S mix test -b
+```
+
+### Setting breakpoint in tested function and then run test:
+
+```elixir
+# test_helper.exs
+ExUnit.start()
+IEx.break!(SoggyWaffle.WeatherAPI.ResponseParser, :parse_response, 1)
+```
+
+```bash
+$ iex -S mix test
+```
+
+> You can always combine breakpoints automatically set by `-b` flag and by
+> `IEx.break!/3`:
+> 
+> ```bash
+> $ iex -S mix test -b
+> ```
+
+## `describe`
+
+As a general guideline, grouping your tests by function is a good place to
+start, as laid out in the following example:
+
+```elixir
+defmodule YourApp.YourModuleTest do
+  use ExUnit.Case
+
+  describe "thing_to_do/1" do
+    test "it returns :ok, calls the function if the key is correct"
+    test "it does not call the function if the key is wrong"
+  end
+end
+```
+
+More:
+- https://hexdocs.pm/ex_unit/ExUnit.Case.html#describe/2
+
+## `setup`
+
+If the `setup` is to set state elsewhere and none of the values are useful in
+the tests following it, the return value can be as simple as `:ok`.
+
+More often, the return value from a `setup` block is passed to the tests it
+precedes. As `Elixir` and `ExUnit` have matured, the common practice has become
+to have your `setup` return a `map` of values that can be used in the subsequent
+test.
+
+It is also common to define your `setup` as a series of functions, which are put
+together by calling `setup` or `setup_all` with a list of function names. Each
+of these functions receive the `context` and can return any of the values
+allowed in `setup` blocks.
+
+More:
+- https://hexdocs.pm/ex_unit/ExUnit.Callbacks.html#setup/1
+
+## `context`
+
+Availability:
+- via second argument for `test`
+- via first argument for `setup`
+- via first argument for functions executed by `setup`
+
+Modification:
+- via `@tag` module attribute
+
+## Tags
+
+By tagging a test, the tag value can be accessed in the `context`, allowing the
+developer to customize the test.
+
+More:
+- https://hexdocs.pm/ex_unit/ExUnit.Case.html#module-tags
+- https://hexdocs.pm/ex_unit/ExUnit.Case.html#module-module-and-describe-tags
 
 # Module structure
 

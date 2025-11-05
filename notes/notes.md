@@ -255,7 +255,7 @@ $ elixir -e "IO.inspect(Application.started_applications())"
     services
     - Compiler (`:compiler`) - interface to the standard `Erlang` compiler
 
-# Application development
+# Software packaging
 
 Applications are the idiomatic way to package software in `Erlang/OTP`. To get
 the idea, they are similar to the "library" concept common in other programming
@@ -534,7 +534,7 @@ https://hexdocs.pm/elixir/Version.html
 - `mix deps`
 - `mix format`
 
-# `IEx` - interactive shell
+# Interactive shell
 
 https://hexdocs.pm/iex/IEx.html
 
@@ -553,6 +553,8 @@ https://hexdocs.pm/iex/IEx.html#module-expressions-in-iex
 ## `IEx.Info.info/1`
 
 https://hexdocs.pm/iex/IEx.Info.html
+
+# Style guide
 
 # Typespecs
 
@@ -1359,6 +1361,19 @@ More:
 - https://hexdocs.pm/ex_unit/ExUnit.Case.html#module-tags
 - https://hexdocs.pm/ex_unit/ExUnit.Case.html#module-module-and-describe-tags
 
+# Truthy and falsy values
+
+In `Elixir`, all datatypes evaluate to a `truthy` or `falsy` value when they are
+encountered in a boolean context (like an `if` expression). All data is
+considered `truthy` except for `false` and `nil`. In particular, empty strings,
+the integer 0, and empty lists are all considered truthy in `Elixir`.
+
+More:
+- https://hexdocs.pm/elixir/Kernel.html#module-truthy-and-falsy-values
+- https://hexdocs.pm/elixir/basic-types.html#booleans-and-nil
+
+# Data persistance
+
 # Module structure
 
 More:
@@ -1804,8 +1819,8 @@ More:
 ## Optional syntax
 
 More:
-- https://hexdocs.pm/elixir/1.18.4/keywords-and-maps.html#do-blocks-and-keywords
-- https://hexdocs.pm/elixir/1.18.4/optional-syntax.html
+- https://hexdocs.pm/elixir/keywords-and-maps.html#do-blocks-and-keywords
+- https://hexdocs.pm/elixir/optional-syntax.html
 
 ## Quoting
 
@@ -2386,7 +2401,7 @@ iex> <<0x70, 0x69, 0x3A, 0x20>> <> "\u03c0"
 
 More:
 - https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#unicode-and-code-points
-- https://hexdocs.pm/elixir/1.18.4/binaries-strings-and-charlists.html#utf-8-and-encodings
+- https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#utf-8-and-encodings
 - https://en.wikipedia.org/wiki/UTF-8#Description
 
 ## `Bitstring`
@@ -2476,17 +2491,6 @@ iex> IO.inspect(~c"pi: ", charlists: :as_lists)
 - use maps for general key-value data structures
 - use maps when working with data that has a predefined set of keys
 - use maps for pattern matching
-
-# Truthy and falsy values
-
-In `Elixir`, all datatypes evaluate to a `truthy` or `falsy` value when they are
-encountered in a boolean context (like an `if` expression). All data is
-considered `truthy` except for `false` and `nil`. In particular, empty strings,
-the integer 0, and empty lists are all considered truthy in `Elixir`.
-
-More:
-- https://hexdocs.pm/elixir/Kernel.html#module-truthy-and-falsy-values
-- https://hexdocs.pm/elixir/basic-types.html#booleans-and-nil
 
 # Miscellaneous
 

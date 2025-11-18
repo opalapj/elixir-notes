@@ -16,12 +16,13 @@ to interface towards other languages, debugging and release handling tools.
 principles.
 
 > That's right! `Elixir` (application) is `OTP` application itself. It is
-core/standard library of whole `Elixir` programming language.
+> core/standard library of whole `Elixir` programming language.
 
 Applications normally contains modules, respectively `Erlang` modules and
 `Elixir` modules.
 
 More:
+
 - https://www.erlang.org/doc/readme.html
 - https://elixir-lang.org/docs.html
 
@@ -33,8 +34,8 @@ Applications are a standard way of building:
 - `supervised systems`.
 
 The simplest applications do not have any processes, but consist of a collection
-of functional modules. Such an application is called a `library` application.
-An example of a `library` application is `Erlang` `STDLIB` or `Elixir` `EEx`.
+of functional modules. Such an application is called a `library` application. An
+example of a `library` application is `Erlang` `STDLIB` or `Elixir` `EEx`.
 
 More complex applications have a bunch of processes. Such an application is
 called a `supervised system` application. An example of a `supervised system`
@@ -54,15 +55,17 @@ erl> application:which_applications().
 ```
 
 More:
+
 - https://www.erlang.org/doc/system/design_principles.html#applications
 
 ## Compilation
 
 `Source code` (`.erl` and `.ex` files) must be compiled (by `compiler`) to
-`object code`. The current abstract machine, which runs the `object code`,
-is called `BEAM`, therefore the object files get the suffix `.beam`.
+`object code`. The current abstract machine, which runs the `object code`, is
+called `BEAM`, therefore the object files get the suffix `.beam`.
 
 More:
+
 - https://www.erlang.org/doc/system/code_loading.html#compilation
 
 ## Code loading
@@ -71,17 +74,17 @@ The `object code` must be loaded into the `Erlang` runtime system. This is
 handled by the `code server` (see `code` module in `Kernel` application).
 
 `Code server` maintains a `code path`, consisting of a list of directories,
-which it searches sequentially when trying to load a module. Initially
-(and mostly), these directories are the root directories of the applications
+which it searches sequentially when trying to load a module. Initially (and
+mostly), these directories are the root directories of the applications
 delivered with `Erlang/OTP` and `Elixir`.
 
 Initially, the `code path` consists of the current working directory and all
 `object code` directories under `ROOT/lib`, where `ROOT` is the installation
 directory of `Erlang`/`Elixir`. Directories can be named `Name[-Vsn]`, where the
 `-Vsn` suffix is optional. By default, the `code server` chooses the directory
-with the highest version number among those which have the same `Name`.
-If an `ebin` directory exists under the `Name[-Vsn]` directory, this directory
-is added to the `code path`.
+with the highest version number among those which have the same `Name`. If an
+`ebin` directory exists under the `Name[-Vsn]` directory, this directory is
+added to the `code path`.
 
 `code path`:
 
@@ -108,8 +111,9 @@ iex> System.get_env("SCRIPT_PATH") |> Path.join("..") |> Path.expand
 # Using erlang shell.
 erl> code:root_dir().
 ```
- 
+
 More:
+
 - https://www.erlang.org/doc/system/system_principles.html#code-loading-strategy
 - https://www.erlang.org/doc/system/code_loading.html#code-loading
 - https://www.erlang.org/doc/apps/kernel/code#module-code-path
@@ -120,20 +124,21 @@ In `Elixir` environment:
 
 - from `Elixir` e.g. alias `Code` (equal to atom `:"Elixir.Code"`)
 
-    Aliases are commonly used as module names. They must be capitalized and
-    written in `CamelCase`. Aliases are constructs that expand to atoms at
-    compile-time. The alias `MyModule` expands to the atom `:"Elixir.MyModule"`.
+  Aliases are commonly used as module names. They must be capitalized and
+  written in `CamelCase`. Aliases are constructs that expand to atoms at
+  compile-time. The alias `MyModule` expands to the atom `:"Elixir.MyModule"`.
 
 - from `Erlang` e.g. atom `:code`
 
-    In `Erlang` module names also correspond to atoms, practically to their
-    simplest, unquoted form.
+  In `Erlang` module names also correspond to atoms, practically to their
+  simplest, unquoted form.
 
 In `Erlang` environment:
 
-- from `Erlang` e.g. atom `code`  
+- from `Erlang` e.g. atom `code`
 
 More:
+
 - https://hexdocs.pm/elixir/alias-require-and-import.html#understanding-aliases
 - https://hexdocs.pm/elixir/syntax-reference.html#aliases
 
@@ -144,16 +149,16 @@ Three possible ways to use standalone `Elixir` modules by `iex`:
 - copy and paste modules definition directly into `iex`
 - tell `iex` to interpret the file while starting (in-memory compilation):
 
-    ```bash
-    $ iex geometry.ex
-    ```
+  ```bash
+  $ iex geometry.ex
+  ```
 
 - compile `.ex` files to `.beam` files and run `iex` in the same directory:
 
-    ```bash
-    $ elixirc geometry.ex
-    $ iex
-    ```
+  ```bash
+  $ elixirc geometry.ex
+  $ iex
+  ```
 
 ## Built-In Functions (`BIFs`)
 
@@ -173,6 +178,7 @@ are difficult or impossible to implement in `Erlang`.
 > `erlang` in `ERTS`.
 >
 > More:
+>
 > - https://www.erlang.org/doc/system/ref_man_functions#built-in-functions-bifs
 > - https://www.erlang.org/doc/system/reference_manual.html#complete-list-of-bifs
 
@@ -192,7 +198,7 @@ In `Erlang`, auto-imported functions come from modules:
 ## Inlining from `Erlang` to `Elixir`
 
 In the `Elixir` some of the functions from `Kernel` module are inlined by the
-`Elixir` compiler into their `Erlang BIFs` counterparts in the `erlang` module. 
+`Elixir` compiler into their `Erlang BIFs` counterparts in the `erlang` module.
 
 > Erlang auto-imported functions are not auto-imported in `Elixir`, eg.
 > `pid_to_list`
@@ -216,6 +222,7 @@ In the `Elixir` some of the functions from `Kernel` module are inlined by the
 > ```
 
 More:
+
 - https://hexdocs.pm/elixir/Kernel.html#module-inlining
 
 ## AST
@@ -226,6 +233,7 @@ More:
 `Efene` and more.
 
 More:
+
 - https://youtu.be/IGmwiyines0?t=2396
 
 ## Default environment
@@ -243,17 +251,17 @@ $ elixir -e "IO.inspect(Application.started_applications())"
 
 - from `Elixir` system:
 
-    - Elixir (`:elixir`) - standard library
-    - Logger (`:logger`) - built-in Logger
+  - Elixir (`:elixir`) - standard library
+  - Logger (`:logger`) - built-in Logger
 
 - from `Erlang` system (minimal system based on `Erlang/OTP` consists of
-`Kernel` and `STDLIB`):
+  `Kernel` and `STDLIB`):
 
-    - Kernel (`:kernel`) - code necessary to run the `Erlang` runtime system,
-    first application started
-    - STDLIB (`:stdlib`) - `Erlang` standard libraries, contains no
-    services
-    - Compiler (`:compiler`) - interface to the standard `Erlang` compiler
+      - Kernel (`:kernel`) - code necessary to run the `Erlang` runtime system,
+      first application started
+      - STDLIB (`:stdlib`) - `Erlang` standard libraries, contains no
+      services
+      - Compiler (`:compiler`) - interface to the standard `Erlang` compiler
 
 # Software packaging
 
@@ -261,8 +269,8 @@ Applications are the idiomatic way to package software in `Erlang/OTP`. To get
 the idea, they are similar to the "library" concept common in other programming
 languages, but with some additional characteristics.
 
-An application is a component implementing some specific functionality, with
-a standardized directory structure, configuration, and life cycle. Applications
+An application is a component implementing some specific functionality, with a
+standardized directory structure, configuration, and life cycle. Applications
 are loaded, started, and stopped. Each application also has its own environment,
 which provides a unified API for configuring each application.
 
@@ -272,6 +280,7 @@ which provides a unified API for configuring each application.
 `Elixir` projects, managing its dependencies, and more.
 
 More:
+
 - https://hexdocs.pm/mix/Mix.html
 - https://hexdocs.pm/elixir/Application.html#module-tooling
 - https://hexdocs.pm/elixir/introduction-to-mix.html
@@ -286,14 +295,15 @@ The foundation of `Mix` is a project. A project can be defined by using
 
 When you call `use Mix.Project`, it notifies `Mix` that a new project has been
 defined, so all `Mix` tasks use your module as a starting point. Once the
-project is defined, a number of default `Mix` tasks can be run directly from
-the command line:
+project is defined, a number of default `Mix` tasks can be run directly from the
+command line:
 
 - `mix compile` - compiles the current project
 - `mix test` - runs tests for the given project
 - `mix run` - runs a particular command inside the project
 
 More:
+
 - https://hexdocs.pm/mix/Mix.html
 - https://hex.pm/docs/publish#example-mixexs-file
 
@@ -306,11 +316,13 @@ application dependencies and the application itself. The application will be
 compiled if it has not been compiled yet or it is outdated.
 
 So, `iex -S mix`:
+
 - compiles source code to object code
 - starts application
 - starts interactive shell
 
 More:
+
 - `iex --help`
 - `elixir --help`
 - `mix --help`
@@ -328,6 +340,7 @@ $ mix run -e "IO.inspect(:code.get_path())"
 ```
 
 More:
+
 - https://hexdocs.pm/elixir/1.15.4/changelog.html#compile-and-boot-time-improvements
 
 ## Compilation
@@ -342,6 +355,7 @@ iex> Mix.compilers()
 ```
 
 More:
+
 - https://hexdocs.pm/mix/Mix.Tasks.Compile.html
 
 ## Starting applications
@@ -359,6 +373,7 @@ behaviour. This can be done by putting `use Application` in that module and
 implementing the `start/2` callback.
 
 More:
+
 - https://hexdocs.pm/elixir/supervisor-and-application.html#the-application-callback
 - https://hexdocs.pm/elixir/Application.html#module-the-application-callback-module
 
@@ -370,21 +385,22 @@ configuration for the project.
 
 - `:app` (required), `:version` (required)
 
-    https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
+  https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
 
 - `:elixir`
 
-    https://hexdocs.pm/mix/Mix.Tasks.Loadpaths.html#module-configuration
+  https://hexdocs.pm/mix/Mix.Tasks.Loadpaths.html#module-configuration
 
 - `:start_permanent`
 
-    https://hexdocs.pm/mix/Mix.Tasks.App.Start.html
+  https://hexdocs.pm/mix/Mix.Tasks.App.Start.html
 
 - `:deps`
 
-    https://hexdocs.pm/mix/Mix.Tasks.Deps.html
+  https://hexdocs.pm/mix/Mix.Tasks.Deps.html
 
 More:
+
 - https://hexdocs.pm/mix/Mix.Project.html
 
 ## Application configuration (`application/0`)
@@ -394,9 +410,10 @@ is a file called `APP_NAME.app`.
 
 - `:extra_applications`, `:mod`
 
-    https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
+  https://hexdocs.pm/mix/Mix.Tasks.Compile.App.html
 
 More:
+
 - https://hexdocs.pm/elixir/introduction-to-mix.html#project-compilation
 - https://hexdocs.pm/elixir/Application.html#module-the-application-environment
 
@@ -412,26 +429,27 @@ Application's environment configurations:
 
 - default - `:env` key in application configuration:
 
-    ```elixir
-    def application do
-      [env: [db_host: "localhost"]]
-    end
-    ```
+  ```elixir
+  def application do
+    [env: [db_host: "localhost"]]
+  end
+  ```
 
 - `config/config.exs` - this file is read at build time, before we compile our
-application and before we even load our dependencies. This means we can't access
-the code in our application nor in our dependencies. However, it means we can
-control how they are compiled.
+  application and before we even load our dependencies. This means we can't
+  access the code in our application nor in our dependencies. However, it means
+  we can control how they are compiled.
 
 - `Application.put_env/4` - at compile time.
 
 - `config/runtime.exs` - this file is read after our application and
-dependencies are compiled and therefore it can configure how our application
-works at runtime. If you want to read system environment variables (via
-`System.get_env/1`) or any sort of external configuration, this is
-the appropriate place to do so.
+  dependencies are compiled and therefore it can configure how our application
+  works at runtime. If you want to read system environment variables (via
+  `System.get_env/1`) or any sort of external configuration, this is the
+  appropriate place to do so.
 
 More:
+
 - https://hexdocs.pm/elixir/config-and-releases.html#application-environment
 - https://hexdocs.pm/elixir/Application.html#module-the-application-environment
 - https://hexdocs.pm/elixir/Config.html
@@ -449,12 +467,14 @@ iex> |> Enum.each(fn {app, _, _} -> IO.puts([inspect(app), " >>> ", inspect(Appl
 ## Project environments
 
 More:
+
 - https://hexdocs.pm/elixir/introduction-to-mix.html#environments
 - https://hexdocs.pm/mix/Mix.html#module-environments
 
 ## Directory structure
 
 More:
+
 - https://www.erlang.org/doc/system/applications.html#directory-structure
 - https://www.erlang.org/doc/apps/kernel/code#priv_dir/1
 - https://www.erlang.org/doc/apps/kernel/code#lib_dir/2
@@ -487,6 +507,7 @@ Dependencies must be specified in the `mix.exs` file.
 ```
 
 More:
+
 - https://hexdocs.pm/mix/Mix.Tasks.Deps.html
 
 ### List
@@ -502,6 +523,7 @@ mix deps.get
 ```
 
 New
+
 - `mix.lock`
 - `deps/`
 - `_build/dev/lib/APP_NAME/.mix/compile.lock`
@@ -513,6 +535,7 @@ mix deps.compile
 ```
 
 New
+
 - `_build/dev/lib/DEP_NAME`
 
 ### Remove
@@ -559,11 +582,13 @@ https://hexdocs.pm/iex/IEx.Info.html
 # Typespecs
 
 There are 3 types of typespecs (actually module attributes):
+
 - `@type`, defines a type to be used in `@spec`
 - `@spec`, provides a specification for a function
 - `@callback`, provides a specification for a behaviour callback
 
 More:
+
 - https://hexdocs.pm/elixir/typespecs.html
 - https://hexdocs.pm/elixir/Module.html#module-typespec-attributes
 
@@ -573,40 +598,40 @@ More:
 
 - list all module types (i.e. all `@type` attributes)
 
-    ```bash
-    iex> t GenServer
-    ```
+  ```bash
+  iex> t GenServer
+  ```
 
 - get doc for specific type (i.e. `@typedoc` attribute prepended to specific
-`@type` attribute)
+  `@type` attribute)
 
-    ```bash
-    iex> t GenServer.name
-    ```
+      ```bash
+      iex> t GenServer.name
+      ```
 
 ### Functions
 
 - get typespecs for specific function (i.e. `@spec` attribute prepended to
-specific function definition)
+  specific function definition)
 
-    ```bash
-    iex> h GenServer.whereis
-    ```
+      ```bash
+      iex> h GenServer.whereis
+      ```
 
 ### Callbacks
 
 - list all module callbacks (i.e. all `@callback` attributes)
 
-    ```bash
-    iex> b GenServer
-    ```
+  ```bash
+  iex> b GenServer
+  ```
 
 - get doc for specific callback (i.e. `@doc` attribute prepended to specific
-`@callback` attribute)
+  `@callback` attribute)
 
-    ```bash
-    iex> b GenServer.init
-    ```
+      ```bash
+      iex> b GenServer.init
+      ```
 
 ## Short form
 
@@ -616,8 +641,8 @@ expressed in the same way: `pid()` (or simply `pid`).
 ## Syntactical notation
 
 Some types can also be declared using their syntactical notation, such as
-`[type]` for lists, `{type1, type2, ...}` for tuples and `<<_ * _>>`
-for binaries.
+`[type]` for lists, `{type1, type2, ...}` for tuples and `<<_ * _>>` for
+binaries.
 
 ## Union type
 
@@ -663,49 +688,51 @@ Explanation:
 `Elixir` documentation is written using `Markdown`.
 
 There are 3 types of docs (actually module attributes):
+
 - `@moduledoc`, used to add documentation to:
-    - module - `defmodule`, see: `h GenServer`
-    - protocol - `defprotocol`, see: `h Enumerable`
+  - module - `defmodule`, see: `h GenServer`
+  - protocol - `defprotocol`, see: `h Enumerable`
 - `@doc`, used to add documentation to:
-    - function - `def`, see: `h GenServer.whereis`
-    - behaviour callback - `@callback`, see: `b GenServer.handle_info`
-    - struct - `defstruct`, see: `h Task.__struct__`
+  - function - `def`, see: `h GenServer.whereis`
+  - behaviour callback - `@callback`, see: `b GenServer.handle_info`
+  - struct - `defstruct`, see: `h Task.__struct__`
 - `@typedoc`, used to add documentation to:
-    - types - `@type`, see: `t Task.t`
+  - types - `@type`, see: `t Task.t`
 
 Accept one of these:
 
 - a string (often a `heredoc`):
 
-    ```elixir
-    @doc "Hello string"
+  ```elixir
+  @doc "Hello string"
 
-    @doc """
-    Hello heredoc
-    """
-    ```
+  @doc """
+  Hello heredoc
+  """
+  ```
 
-    > `Elixir` promotes the use of `Markdown` with `heredocs` to write readable
-    > documentation. `Heredocs` are multi-line strings, they start and end
-    > with triple double-quotes, keeping the formatting of the inner text.
+  > `Elixir` promotes the use of `Markdown` with `heredocs` to write readable
+  > documentation. `Heredocs` are multi-line strings, they start and end with
+  > triple double-quotes, keeping the formatting of the inner text.
 
 - `false`, which will make the entity invisible to documentation-extraction
-tools like `ExDoc`:
+  tools like `ExDoc`:
 
-    ```elixir
-    @doc false
-    ```
+      ```elixir
+      @doc false
+      ```
 
-    > Function with `@doc false` are not listed with tab completion in `iex`.
-    > But there are still listed using `exports` helper.
+      > Function with `@doc false` are not listed with tab completion in `iex`.
+      > But there are still listed using `exports` helper.
 
 - a keyword list, since `Elixir` 1.7.0:
 
-    ```elixir
-    @doc since: "1.1.0"
-    ```
+  ```elixir
+  @doc since: "1.1.0"
+  ```
 
 More:
+
 - https://hexdocs.pm/elixir/writing-documentation.html
 - https://hexdocs.pm/elixir/module-attributes.html
 - https://hexdocs.pm/elixir/Module.html#module-moduledoc
@@ -716,34 +743,34 @@ More:
 ### Modules
 
 - get doc for specific module (i.e. `@moduledoc` attribute prepended to specific
-module definition)
+  module definition)
 
-    ```bash
-    iex> h GenServer
-    ```
+      ```bash
+      iex> h GenServer
+      ```
 
 ### Functions
 
 - get doc for specific function (i.e. `@doc` attribute prepended to specific
-function definition)
+  function definition)
 
-    ```bash
-    iex> h GenServer.whereis
-    ```
+      ```bash
+      iex> h GenServer.whereis
+      ```
 
 ### Types
 
 - get doc for specific type (i.e. `@typedoc` attribute prepended to specific
-`@type` attribute)
+  `@type` attribute)
 
-    ```bash
-    iex> t GenServer.name
-    ```
+      ```bash
+      iex> t GenServer.name
+      ```
 
 ## Function arguments & pattern matching
 
-When documenting a function, argument names are inferred by the compiler.
-Best practice is to put only the function head and argument names of function at
+When documenting a function, argument names are inferred by the compiler. Best
+practice is to put only the function head and argument names of function at
 first and then next definitions according to various patterns:
 
 ```elixir
@@ -768,6 +795,7 @@ for first argument. Local scope is already being created from name and
 arguments.
 
 More:
+
 - https://hexdocs.pm/elixir/writing-documentation.html#function-arguments
 
 ## Docs metadata
@@ -860,7 +888,7 @@ passed to it without affecting the behavior of the original code.
 `Inspect` protocol. It is useful e.g. to attach items to messages.
 
 > `Inspect` protocol (used by `Kernel.inspect/2`) has much more implementations
-than `String.Charts` protocol (used by `Kernel.to_string/1`).
+> than `String.Charts` protocol (used by `Kernel.to_string/1`).
 
 ## `Kernel.dbg/2`
 
@@ -887,7 +915,8 @@ https://hexdocs.pm/elixir/Kernel.html#dbg/2-dbg-inside-iex
 
 https://hexdocs.pm/iex/IEx.html#break!/2
 
-> `.iex.exs` or `config/runtime.exs` could be very useful to declare breakpoints.
+> `.iex.exs` or `config/runtime.exs` could be very useful to declare
+> breakpoints.
 
 ## `:observer` app from `Erlang`
 
@@ -900,12 +929,14 @@ https://hexdocs.pm/logger/Logger.html
 # Logging
 
 > This application is mostly a wrapper around `Erlang`'s `:logger`
-functionality, to provide message translation and formatting to `Elixir` terms.
+> functionality, to provide message translation and formatting to `Elixir`
+> terms.
 
 Provides all 7 syslog levels, although `debug`, `info`, `warning` and `error`
 are the most commonly used.
 
 More:
+
 - https://hexdocs.pm/logger/Logger.html
 - https://www.erlang.org/doc/apps/kernel/logger.html
 - https://www.erlang.org/doc/apps/kernel/logger_chapter.html
@@ -924,22 +955,22 @@ When `Logger` starts (`Elixir`), it configures `primary logger` and
 `default handler` from `Erlang` to translate and format `Elixir` terms.
 
 > Compared to `Python`, where multiple loggers (per module) are most commonly
-used, `Elixir` has only one logger. For configuration, e.g. module or
-application log level in `Elixir`, the `API` (`Logger.put_module_level/2`,
-`Logger.put_application_level/2`) and `module_levels` key
-(`:logger.get_config.module_levels`) are used instead of logger configuration
-for a given module or package, such as in `Python`.
+> used, `Elixir` has only one logger. For configuration, e.g. module or
+> application log level in `Elixir`, the `API` (`Logger.put_module_level/2`,
+> `Logger.put_application_level/2`) and `module_levels` key
+> (`:logger.get_config.module_levels`) are used instead of logger configuration
+> for a given module or package, such as in `Python`.
 
 ## Handlers
 
 The following built-in handlers exist:
 
 - `logger_std_h` - default handler used by `OTP`. Multiple instances can be
-started, and each instance will write log events to a given destination,
-terminal or file
+  started, and each instance will write log events to a given destination,
+  terminal or file
 
 - `logger_disk_log_h` - behaves much like `logger_std_h`, except it uses
-disk_log as its destination
+  disk_log as its destination
 
 ## Configuration
 
@@ -968,204 +999,209 @@ At system start, `primary logger` is configured through `Kernel` configuration
 parameters.
 
 The primary log level can be overridden by a log level configured per module.
-This is to, for instance, allow more verbose logging from a specific part of
-the system.
+This is to, for instance, allow more verbose logging from a specific part of the
+system.
 
 `Primary logger` configuration:
 
 - defaults for `Erlang` (`logger:get_primary_config().`):
-    - `level: :notice`
 
-        > The initial value of this option is set by the `Kernel` configuration
-        > parameter `logger_level`
-        >
-        > ```bash
-        > erl> application:get_env(kernel, logger_level).
-        > ```
+  - `level: :notice`
 
-    - `filter_default: :log`
-    - `filters: []`
-    - `metadata: %{}`
+    > The initial value of this option is set by the `Kernel` configuration
+    > parameter `logger_level`
+    >
+    > ```bash
+    > erl> application:get_env(kernel, logger_level).
+    > ```
+
+  - `filter_default: :log`
+  - `filters: []`
+  - `metadata: %{}`
 
 - defaults for `Elixir` (`:logger.get_primary_config()`):
-    - `level: :debug`
 
-        > Value overwritten in source code (not by application environment).
+  - `level: :debug`
 
-    - `filter_default: :log`
-    - `filters: [...]`
+    > Value overwritten in source code (not by application environment).
 
-        > Value overwritten in source code (not by application environment).
+  - `filter_default: :log`
+  - `filters: [...]`
 
-    - `metadata: %{}`
+    > Value overwritten in source code (not by application environment).
+
+  - `metadata: %{}`
 
 Custom configuration:
 
 - to configure level:
 
-    ```elixir
-    config :logger, level: :warning
-    ```
+  ```elixir
+  config :logger, level: :warning
+  ```
 
 ### Handlers
 
-By configuration, you can also modify or disable the default handler, replace
-it by a custom handler, and install additional handlers.
+By configuration, you can also modify or disable the default handler, replace it
+by a custom handler, and install additional handlers.
 
 `Default handler` configuration:
 
 - defaults for `Erlang` (`logger:get_handler_config(default).`):
-    - `id: :default`
 
-        > The initial value of this option is set by the `Kernel` configuration
-        > parameter `logger` - especially `HandlerId` value from
-        > `{handler, HandlerId, Module, HandlerConfig}`
-        >
-        > ```bash
-        > erl> application:get_env(kernel, logger).
-        > ```
+  - `id: :default`
 
-    - `module: :logger_std_h`
+    > The initial value of this option is set by the `Kernel` configuration
+    > parameter `logger` - especially `HandlerId` value from
+    > `{handler, HandlerId, Module, HandlerConfig}`
+    >
+    > ```bash
+    > erl> application:get_env(kernel, logger).
+    > ```
 
-        > The initial value of this option is set by the `Kernel` configuration
-        > parameter `logger` - especially `Module` value from
-        > `{handler, HandlerId, Module, HandlerConfig}`
-        >
-        > ```bash
-        > erl> application:get_env(kernel, logger).
-        > ```
+  - `module: :logger_std_h`
 
-    - `level: :all`
-    - `filter_default: :stop`
-    - `filters: [...]`
-    - `formatter: {...}`
-    - `config: %{...}`
+    > The initial value of this option is set by the `Kernel` configuration
+    > parameter `logger` - especially `Module` value from
+    > `{handler, HandlerId, Module, HandlerConfig}`
+    >
+    > ```bash
+    > erl> application:get_env(kernel, logger).
+    > ```
 
-        > Configuration data related to a specific handler implementation.
-        > The configuration for the built-in handlers is described in the
-        > `logger_std_h` and `logger_disk_log_h` manual pages.
+  - `level: :all`
+  - `filter_default: :stop`
+  - `filters: [...]`
+  - `formatter: {...}`
+  - `config: %{...}`
+
+    > Configuration data related to a specific handler implementation. The
+    > configuration for the built-in handlers is described in the `logger_std_h`
+    > and `logger_disk_log_h` manual pages.
 
 - defaults for `Elixir` (`:logger.get_handler_config(:default)`):
-    - `id: :default`
 
-        > The initial value of this option is set by the `Kernel` configuration
-        > parameter `logger` - especially `HandlerId` value from
-        > `{handler, HandlerId, Module, HandlerConfig}`
-        >
-        > ```bash
-        > erl> application:get_env(kernel, logger).
-        > ```
+  - `id: :default`
 
-    - `module: :logger_std_h`
+    > The initial value of this option is set by the `Kernel` configuration
+    > parameter `logger` - especially `HandlerId` value from
+    > `{handler, HandlerId, Module, HandlerConfig}`
+    >
+    > ```bash
+    > erl> application:get_env(kernel, logger).
+    > ```
 
-        > The initial value of this option is set by the `Kernel` configuration
-        > parameter `logger` - especially `Module` value from
-        > `{handler, HandlerId, Module, HandlerConfig}`
-        >
-        > ```bash
-        > erl> application:get_env(kernel, logger).
-        > ```
+  - `module: :logger_std_h`
 
-    - `level: :all`
-    - `filter_default: :log`
-    - `filters: [...]`
-    - `formatter: {...}`
-    - `config: %{...}`
+    > The initial value of this option is set by the `Kernel` configuration
+    > parameter `logger` - especially `Module` value from
+    > `{handler, HandlerId, Module, HandlerConfig}`
+    >
+    > ```bash
+    > erl> application:get_env(kernel, logger).
+    > ```
 
-        > Configuration data related to a specific handler implementation.
-        > The configuration for the built-in handlers is described in the
-        > `logger_std_h` and `logger_disk_log_h` manual pages.
+  - `level: :all`
+  - `filter_default: :log`
+  - `filters: [...]`
+  - `formatter: {...}`
+  - `config: %{...}`
+
+    > Configuration data related to a specific handler implementation. The
+    > configuration for the built-in handlers is described in the `logger_std_h`
+    > and `logger_disk_log_h` manual pages.
 
 Custom configuration:
 
 - to configure default handler:
 
-    ```elixir
-    # The `logger_std_h` configured as file handler.
-    config :logger, :default_handler,
-      level: :info,
-      config: [
-        file: ~c"info.log",
-        type: :file,
-        modes: [:write]
-      ]
+  ```elixir
+  # The `logger_std_h` configured as file handler.
+  config :logger, :default_handler,
+    level: :info,
+    config: [
+      file: ~c"info.log",
+      type: :file,
+      modes: [:write]
+    ]
 
-    # Use of `logger_disk_log_h`.
-    config :logger, :default_handler,
-      level: :error,
-      module: :logger_disk_log_h,
-      config: [
-        file: ~c"error.log",
-        type: :halt
-      ]
-    ```
+  # Use of `logger_disk_log_h`.
+  config :logger, :default_handler,
+    level: :error,
+    module: :logger_disk_log_h,
+    config: [
+      file: ~c"error.log",
+      type: :halt
+    ]
+  ```
 
 - to disable default handler:
 
-    ```elixir
-    config :logger, :default_handler, false
-    ```
+  ```elixir
+  config :logger, :default_handler, false
+  ```
 
 - to add custom handler:
 
-    ```elixir
-    # config.exs
-    config :nercast, :logger, [
-      {:handler, :custom, :logger_std_h,
-       %{
-         formatter:
-           Logger.Formatter.new(
-             colors: [
-               warning: :magenta,
-               error: :green
-             ]
-           )
-       }}
-    ]
+  ```elixir
+  # config.exs
+  config :nercast, :logger, [
+    {:handler, :custom, :logger_std_h,
+     %{
+       formatter:
+         Logger.Formatter.new(
+           colors: [
+             warning: :magenta,
+             error: :green
+           ]
+         )
+     }}
+  ]
 
-    # application callback module
-    use Application
+  # application callback module
+  use Application
 
-    @impl true
-    def start(_type, _args) do
-      ...
-      case Supervisor.start_link(children, opts) do
-        {:ok, pid} ->
-          add_custom_handler()
-          {:ok, pid}
+  @impl true
+  def start(_type, _args) do
+    ...
+    case Supervisor.start_link(children, opts) do
+      {:ok, pid} ->
+        add_custom_handler()
+        {:ok, pid}
 
-        error ->
-          error
-      end
+      error ->
+        error
     end
+  end
 
-    defp add_custom_handler do
-      __MODULE__
-      |> Application.get_application()
-      |> Logger.add_handlers()
-    end
+  defp add_custom_handler do
+    __MODULE__
+    |> Application.get_application()
+    |> Logger.add_handlers()
+  end
 
-    # or:
+  # or:
 
-    use Application
+  use Application
 
-    @impl true
-    def start(_type, _args) do
-      add_custom_handler()
-      ...
-      Supervisor.start_link(children, opts)
-    end
+  @impl true
+  def start(_type, _args) do
+    add_custom_handler()
+    ...
+    Supervisor.start_link(children, opts)
+  end
 
-    defp add_custom_handler do
-      __MODULE__
-      |> Application.get_application()
-      |> Logger.add_handlers()
-    end
-    ```
+  defp add_custom_handler do
+    __MODULE__
+    |> Application.get_application()
+    |> Logger.add_handlers()
+  end
+  ```
 
 ## Configuring logging for a library
 
-According to and following: https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
+According to and following:
+https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
 
 Counterpart for `NullHandler` in `Python`:
 
@@ -1246,6 +1282,7 @@ end
 - `seed: 0`
 
 More:
+
 - https://hexdocs.pm/ex_unit/ExUnit.html#configure/1-options
 
 ## Best practices
@@ -1300,7 +1337,7 @@ $ iex -S mix test
 
 > You can always combine breakpoints automatically set by `-b` flag and by
 > `IEx.break!/3`:
-> 
+>
 > ```bash
 > $ iex -S mix test -b
 > ```
@@ -1322,6 +1359,7 @@ end
 ```
 
 More:
+
 - https://hexdocs.pm/ex_unit/ExUnit.Case.html#describe/2
 
 ## `setup`
@@ -1340,16 +1378,19 @@ of these functions receive the `context` and can return any of the values
 allowed in `setup` blocks.
 
 More:
+
 - https://hexdocs.pm/ex_unit/ExUnit.Callbacks.html#setup/1
 
 ## `context`
 
 Availability:
+
 - via second argument for `test`
 - via first argument for `setup`
 - via first argument for functions executed by `setup`
 
 Modification:
+
 - via `@tag` module attribute
 
 ## Tags
@@ -1358,6 +1399,7 @@ By tagging a test, the tag value can be accessed in the `context`, allowing the
 developer to customize the test.
 
 More:
+
 - https://hexdocs.pm/ex_unit/ExUnit.Case.html#module-tags
 - https://hexdocs.pm/ex_unit/ExUnit.Case.html#module-module-and-describe-tags
 
@@ -1369,6 +1411,7 @@ considered `truthy` except for `false` and `nil`. In particular, empty strings,
 the integer 0, and empty lists are all considered truthy in `Elixir`.
 
 More:
+
 - https://hexdocs.pm/elixir/Kernel.html#module-truthy-and-falsy-values
 - https://hexdocs.pm/elixir/basic-types.html#booleans-and-nil
 
@@ -1377,6 +1420,7 @@ More:
 # Module structure
 
 More:
+
 - https://hexdocs.pm/elixir/Module.html#c:__info__/1
 - https://hexdocs.pm/elixir/Module.html#module-generated-functions
 
@@ -1389,6 +1433,7 @@ It is only possible to define a struct per module, as the struct is tied to the
 module itself.
 
 More:
+
 - https://hexdocs.pm/elixir/structs.html
 - https://hexdocs.pm/elixir/Kernel.html#defstruct/1
 - https://hexdocs.pm/elixir/Module.html#module-struct-attributes
@@ -1397,6 +1442,7 @@ More:
 ## Deriving
 
 More:
+
 - https://hexdocs.pm/elixir/Protocol.html#c:__deriving__/2
 - https://hexdocs.pm/elixir/Protocol.html#derive/3
 - https://hexdocs.pm/elixir/Inspect.html#module-deriving
@@ -1404,9 +1450,9 @@ More:
 
 ## Matching structs against maps
 
-The `__struct__` field has an important consequence on pattern matching.
-A struct pattern can’t match a plain map, but a plain map pattern can match
-a struct:
+The `__struct__` field has an important consequence on pattern matching. A
+struct pattern can’t match a plain map, but a plain map pattern can match a
+struct:
 
 ```bash
 iex> roksi = %Dog{name: "Roxana", age: 3}
@@ -1483,6 +1529,7 @@ similar to interfaces or abstract base classes in other languages. We can add as
 many implementations as we like using `defimpl/2`.
 
 More:
+
 - https://hexdocs.pm/elixir/protocols.html#content
 - https://hexdocs.pm/elixir/Protocol.html
 
@@ -1514,6 +1561,7 @@ end
 
 Manually implementing protocols for all types can quickly become repetitive and
 tedious. In such cases, `Elixir` provides two options:
+
 - explicitly derive the protocol implementation for specific type
 - implicitly derive the protocol implementation for all types
 
@@ -1566,19 +1614,19 @@ derived:
 
 - using the `@derive` module attribute by the time you define the struct:
 
-    ```elixir
-    defmodule User do
-    @derive [Size]
-    defstruct [:name, :age]
-    end
-    ```
+  ```elixir
+  defmodule User do
+  @derive [Size]
+  defstruct [:name, :age]
+  end
+  ```
 
 - using the `Protocol.derive/3` macro, if the struct has already been defined:
 
-    ```elixir
-    require Protocol
-    Protocol.derive(Size, User)
-    ```
+  ```elixir
+  require Protocol
+  Protocol.derive(Size, User)
+  ```
 
 ### Implicitly derive the protocol implementation for all types
 
@@ -1611,53 +1659,53 @@ Implemented protocols
 
 - Is the module a protocol?
 
-    1. Using `IEx` helper, `Protocol` chapter
+  1. Using `IEx` helper, `Protocol` chapter
 
-        ```bash
-        iex> i Enumerable
-        ```
+     ```bash
+     iex> i Enumerable
+     ```
 
-    2. Presence of `__protocol__` callback
+  2. Presence of `__protocol__` callback
 
-        ```bash
-        Kernel.function_exported?(Enumerable, :__protocol__, 1)
-        ```
+     ```bash
+     Kernel.function_exported?(Enumerable, :__protocol__, 1)
+     ```
 
 - Does the type have any protocol implemented?
 
-    1. Using `IEx` helper, `Implemented protocols` chapter
+  1. Using `IEx` helper, `Implemented protocols` chapter
 
-        ```bash
-        iex> i [1, 2, 3]
-        ```
+     ```bash
+     iex> i [1, 2, 3]
+     ```
 
-    2. Using set of functions
+  2. Using set of functions
 
-        ```bash
-        :code.get_path()
-        |> Protocol.extract_protocols()
-        |> Enum.uniq()
-        |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) != nil end)
-        |> Enum.any?()
-        ```
+     ```bash
+     :code.get_path()
+     |> Protocol.extract_protocols()
+     |> Enum.uniq()
+     |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) != nil end)
+     |> Enum.any?()
+     ```
 
 - Does the type have a specific protocol implemented?
 
-    1. Using `IEx` helper, `Implemented protocols` chapter
+  1. Using `IEx` helper, `Implemented protocols` chapter
 
-        ```bash
-        iex> i [1, 2, 3]
-        ```
+     ```bash
+     iex> i [1, 2, 3]
+     ```
 
-    2. Using set of functions
+  2. Using set of functions
 
-        ```bash
-        :code.get_path()
-        |> Protocol.extract_protocols()
-        |> Enum.uniq()
-        |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) == Enumerable.List end)
-        |> Enum.any?()
-        ```
+     ```bash
+     :code.get_path()
+     |> Protocol.extract_protocols()
+     |> Enum.uniq()
+     |> Enum.filter(fn protocol -> protocol.impl_for([1, 2, 3]) == Enumerable.List end)
+     |> Enum.any?()
+     ```
 
 # Behaviours
 
@@ -1673,6 +1721,7 @@ A `behaviour module` defines a set of functions and macros (referred to as
 `callbacks`) that `callback modules` (implementing that behaviour) must export.
 
 More:
+
 - https://hexdocs.pm/elixir/typespecs.html#behaviours
 
 ## Defining callbacks
@@ -1712,10 +1761,11 @@ If a module adopting a given behaviour (i.e. `callback module`) doesn't
 implement one of the callbacks required by that behaviour, a compile-time
 warning will be generated.
 
-Furthermore, with `@impl` you can also make sure that you are implementing
-the correct callbacks from the given behaviour in an explicit manner.
+Furthermore, with `@impl` you can also make sure that you are implementing the
+correct callbacks from the given behaviour in an explicit manner.
 
 More:
+
 - https://hexdocs.pm/elixir/typespecs.html#implementing-behaviours
 - https://hexdocs.pm/elixir/Module.html#module-impl-since-v1-5-0
 
@@ -1737,25 +1787,25 @@ Examples:
 
 - Is the module a behaviour?
 
-    ```bash
-    Kernel.function_exported?(GenServer, :behaviour_info, 1)
-    ```
+  ```bash
+  Kernel.function_exported?(GenServer, :behaviour_info, 1)
+  ```
 
 - Does the module adopt any behaviour?
 
-    ```bash
-    Keyword.has_key?(Dog.module_info(:attributes), :behaviour)
-    ```
+  ```bash
+  Keyword.has_key?(Dog.module_info(:attributes), :behaviour)
+  ```
 
 - Does the module adopt a specific behaviour?
 
-    ```bash
-    :attributes
-    |> Dog.module_info()
-    |> Keyword.get_values(:behaviour)
-    |> List.flatten()
-    |> Enum.member?(Animal)
-    ```
+  ```bash
+  :attributes
+  |> Dog.module_info()
+  |> Keyword.get_values(:behaviour)
+  |> List.flatten()
+  |> Enum.member?(Animal)
+  ```
 
 # Protocols vs Behaviours
 
@@ -1780,6 +1830,7 @@ them by passing that module name into something that expects to be able to call
 the functions in the behaviour.
 
 More:
+
 - https://elixirforum.com/t/help-understanding-protocols-and-behaviours/57229/4
 
 ## Thoughts about implementation stage
@@ -1790,10 +1841,10 @@ Protocols can be implemented outside module for specific type, e.g. `Enumerable`
 protocol:
 
 - for lists, maps and functions - protocol implemented outside corresponding
-modules i.e. `List`, `Map`, `Function`
+  modules i.e. `List`, `Map`, `Function`
 
-- for ranges, hashdicts etc. - protocol implemented inside corresponding
-modules i.e. `Range`, `HashDict` etc.
+- for ranges, hashdicts etc. - protocol implemented inside corresponding modules
+  i.e. `Range`, `HashDict` etc.
 
 ## Use Protocol as Behavior
 
@@ -1811,6 +1862,7 @@ current module, such as importing itself or other modules, defining new
 functions, setting a module state, etc.
 
 More:
+
 - https://hexdocs.pm/elixir/alias-require-and-import.html#use
 - https://hexdocs.pm/elixir/Kernel.html#use/2
 
@@ -1819,6 +1871,7 @@ More:
 ## Optional syntax
 
 More:
+
 - https://hexdocs.pm/elixir/keywords-and-maps.html#do-blocks-and-keywords
 - https://hexdocs.pm/elixir/optional-syntax.html
 
@@ -1837,8 +1890,8 @@ iex> quote do: sum(1, 2, 3)
 
 `AST` / `qouted expression`: `{:sum, [], [1, 2, 3]}`
 
-There are five `Elixir` literals that, when quoted, return themselves (and not
-a tuple). They are:
+There are five `Elixir` literals that, when quoted, return themselves (and not a
+tuple). They are:
 
 ```elixir
 :sum         #=> Atoms
@@ -1856,10 +1909,10 @@ In general, the tuples above are structured according to the following format:
 
 - The first element is an `atom` or another `tuple` in the same representation;
 - The second element is a `keyword list` containing metadata, like numbers and
-contexts;
-- The third element is either a `list` of arguments for the function call or
-an `atom`. When this element is an `atom`, it means the tuple represents a
-variable.
+  contexts;
+- The third element is either a `list` of arguments for the function call or an
+  `atom`. When this element is an `atom`, it means the tuple represents a
+  variable.
 
 Examples:
 
@@ -1877,6 +1930,7 @@ iex> quote do: String.upcase("foo")
 ```
 
 More:
+
 - https://hexdocs.pm/elixir/quote-and-unquote.html#quoting
 - https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2
 
@@ -1892,22 +1946,24 @@ iex> Macro.to_string(quote do: sum(1, 2 + 3, 4))
 
 ### Binding and unquote fragments
 
-`Elixir` quote/unquote mechanisms provide a functionality called
-*unquote fragments*. *Unquote fragments* provide an easy way to generate
-functions on the fly.
+`Elixir` quote/unquote mechanisms provide a functionality called _unquote
+fragments_. _Unquote fragments_ provide an easy way to generate functions on the
+fly.
 
 More:
+
 - https://hexdocs.pm/elixir/Kernel.SpecialForms.html#quote/2-binding-and-unquote-fragments
 
 ## Unquoting
 
 Unquotes the given expression inside a quoted expression.
 
-This function expects a valid `Elixir AST`, also known as quoted expression,
-as argument. If you would like to unquote any value, such as a map or
-a four-element tuple, you should call `Macro.escape/1` before unquoting.
+This function expects a valid `Elixir AST`, also known as quoted expression, as
+argument. If you would like to unquote any value, such as a map or a
+four-element tuple, you should call `Macro.escape/1` before unquoting.
 
 More:
+
 - https://hexdocs.pm/elixir/quote-and-unquote.html#unquoting
 - https://hexdocs.pm/elixir/Kernel.SpecialForms.html#unquote/1
 - https://hexdocs.pm/elixir/Kernel.SpecialForms.html#unquote_splicing/1
@@ -1918,8 +1974,8 @@ More:
 Macros are compile-time constructs that receive` Elixir's AST` as input and
 return `Elixir's AST` as output.
 
-Macros do not evaluate their arguments. Instead, they receive the arguments
-as quoted expressions which are then transformed into other quoted expressions:
+Macros do not evaluate their arguments. Instead, they receive the arguments as
+quoted expressions which are then transformed into other quoted expressions:
 
 ```elixir
 defmodule Meta do
@@ -1944,6 +2000,7 @@ iex> Meta.macro({1, 2, 3})
 ```
 
 More:
+
 - https://hexdocs.pm/elixir/Macro.html
 
 # OOP pillars vs functional programming
@@ -1968,12 +2025,14 @@ String.upcase("a string")
 ```
 
 OOP (e.g. `Python`):
+
 - classes
 - methods
 - attributes
 - properties
 
 Functional programming (e.g. `Elixir`):
+
 - modules
 - functions
 
@@ -2015,12 +2074,13 @@ print(dog.bark())  # Output: Woof!
 First - `Elixir` is FP, not OOP!
 
 > FWIW, one rule of thumb coming from OO land to Elixir Land. Everytime you
-start thinking you need to “inherit” something, instead think about composing
-something. Actually that rule works pretty well in OO Land as well.
+> start thinking you need to “inherit” something, instead think about composing
+> something. Actually that rule works pretty well in OO Land as well.
 
 Use `use` with `delegate` for inheritance at functions level.
 
 More:
+
 - https://elixirforum.com/t/inheritance-in-elixir/58085
 - https://stackoverflow.com/questions/35302208/how-do-you-extend-inherit-an-elixir-module
 - https://blixtdev.com/dont-do-this-object-oriented-inheritance-in-elixir-with-macros/
@@ -2028,6 +2088,7 @@ More:
 Use composition for inheritance at structs level.
 
 More:
+
 - https://elixirforum.com/t/a-sort-of-inheritance-for-struct/942
 - https://stackoverflow.com/questions/32847464/struct-reuse-for-modules-in-elixir
 
@@ -2038,8 +2099,8 @@ types. In other words, it is the ability to create abstract methods from
 specific types in order to treat those types in a uniform way.
 
 Imagine that you have to print a `string` or an `integer` — it is more
-convenient when a function is called simply `print`, not `print_string`
-or `print_integer`.
+convenient when a function is called simply `print`, not `print_string` or
+`print_integer`.
 
 However, the `string` must be handled differently than the `integer`, so there
 will be two implementations of the function that lead to printing, but naming
@@ -2047,109 +2108,110 @@ them with a common name creates a convenient abstract interface independent of
 the type of value to be printed.
 
 Summary:
+
 - polymorphism is used when different class objects share conceptually similar
-methods (but are not always inherited)
+  methods (but are not always inherited)
 - polymorphism leverages clarity and expressiveness of the application design
-and development
+  and development
 - when polymorphism is assumed, it is wise to handle exceptions that could pop
-up
+  up
 
 Methods to achieve polymorphism:
 
 - duck typing
 
-    Duck typing is a fancy name for the term describing an application of the
-    duck test: "If it walks like a duck and it quacks like a duck, then it must
-    be a duck", which determines whether an object can be used for a particular
-    purpose. An object's suitability is determined by the presence of certain
-    attributes, rather than by the type of the object itself.
+  Duck typing is a fancy name for the term describing an application of the duck
+  test: "If it walks like a duck and it quacks like a duck, then it must be a
+  duck", which determines whether an object can be used for a particular
+  purpose. An object's suitability is determined by the presence of certain
+  attributes, rather than by the type of the object itself.
 
-    > In duck typing, we believe that objects own the methods that are called.
-    > If they do not own them, then we should be prepared to handle exceptions.
+  > In duck typing, we believe that objects own the methods that are called. If
+  > they do not own them, then we should be prepared to handle exceptions.
 
-    ### Python
+  ### Python
 
-    ```python
-    class Cat:
-        def speak(self):
-            return "Meow"
+  ```python
+  class Cat:
+      def speak(self):
+          return "Meow"
 
-    class Dog:
-        def speak(self):
-            return "Woof"
+  class Dog:
+      def speak(self):
+          return "Woof"
 
-    def animal_sound(animal):
-        return animal.speak()  # Doesn't care about the class, only the method
+  def animal_sound(animal):
+      return animal.speak()  # Doesn't care about the class, only the method
 
-    print(animal_sound(Cat()))  # Output: Meow
-    print(animal_sound(Dog()))  # Output: Woof
-    ```
+  print(animal_sound(Cat()))  # Output: Meow
+  print(animal_sound(Dog()))  # Output: Woof
+  ```
 
 - inheritance
 
-    One way to carry out polymorphism is inheritance, when subclasses make use
-    of base class methods, or override them. You can use inheritance to create
-    polymorphic behavior, and usually that's what you do, but that's not what
-    polymorphism is about.
+  One way to carry out polymorphism is inheritance, when subclasses make use of
+  base class methods, or override them. You can use inheritance to create
+  polymorphic behavior, and usually that's what you do, but that's not what
+  polymorphism is about.
 
-    > In inheritance, all subclasses are equipped with methods named the same
-    > way as the methods present in the superclass.
+  > In inheritance, all subclasses are equipped with methods named the same way
+  > as the methods present in the superclass.
 
-    ### Python
+  ### Python
 
-    ```python
-    class Animal:
-        def speak(self):
-            return "Some sound"
+  ```python
+  class Animal:
+      def speak(self):
+          return "Some sound"
 
-    class Dog(Animal):
-        def speak(self):
-            return "Woof"
+  class Dog(Animal):
+      def speak(self):
+          return "Woof"
 
-    class Cat(Animal):
-        def speak(self):
-            return "Meow"
+  class Cat(Animal):
+      def speak(self):
+          return "Meow"
 
-    def animal_sound(animal: Animal):
-        return animal.speak()
+  def animal_sound(animal: Animal):
+      return animal.speak()
 
-    print(animal_sound(Cat()))  # Output: Meow
-    print(animal_sound(Dog()))  # Output: Woof
-    ```
+  print(animal_sound(Cat()))  # Output: Meow
+  print(animal_sound(Dog()))  # Output: Woof
+  ```
 
 - abstraction
 
-    If we want our code to be polymorphic, all subclasses have to deliver a set
-    of their own method implementations in order to call them by using common
-    method names.
+  If we want our code to be polymorphic, all subclasses have to deliver a set of
+  their own method implementations in order to call them by using common method
+  names.
 
-    > Abstraction is the most effective way to achieve polymorphism. It forces
-    > the provision of a common interface in newly implemented classes.
+  > Abstraction is the most effective way to achieve polymorphism. It forces the
+  > provision of a common interface in newly implemented classes.
 
-    ### Python
+  ### Python
 
-    ```python
-    from abc import ABC, abstractmethod
+  ```python
+  from abc import ABC, abstractmethod
 
-    class Animal(ABC):
-        @abstractmethod
-        def speak(self):
-            pass
+  class Animal(ABC):
+      @abstractmethod
+      def speak(self):
+          pass
 
-    class Dog(Animal):
-        def speak(self):
-            return "Woof"
+  class Dog(Animal):
+      def speak(self):
+          return "Woof"
 
-    class Cat(Animal):
-        def speak(self):
-            return "Meow"
+  class Cat(Animal):
+      def speak(self):
+          return "Meow"
 
-    def animal_sound(animal: Animal):
-        return animal.speak()
+  def animal_sound(animal: Animal):
+      return animal.speak()
 
-    print(animal_sound(Cat()))  # Output: Meow
-    print(animal_sound(Dog()))  # Output: Woof
-    ```
+  print(animal_sound(Cat()))  # Output: Meow
+  print(animal_sound(Dog()))  # Output: Woof
+  ```
 
 ### Elixir
 
@@ -2225,6 +2287,7 @@ attributes, so it would act as a property in a way.
 # Anonymous functions (`fn`)
 
 More:
+
 - https://hexdocs.pm/elixir/anonymous-functions.html
 - https://hexdocs.pm/elixir/Function.html
 - https://hexdocs.pm/elixir/Kernel.SpecialForms.html#fn/1
@@ -2235,27 +2298,27 @@ More:
 Capture operator is used:
 
 - to capture public module functions and pass them around as if they were
-anonymous functions
+  anonymous functions
 
-    ```elixir
-    add = &Kernel.+/2
-    ```
+      ```elixir
+      add = &Kernel.+/2
+      ```
 
 - as a shortcut for creating functions that wrap existing functions
 
-    ```elixir
-    add_two = &Kernel.+(&1 + 2)
-    ```
+  ```elixir
+  add_two = &Kernel.+(&1 + 2)
+  ```
 
 - as a shortcut for creating anonymous functions
 
-    ```elixir
-    add = &(&1 + &2)
+  ```elixir
+  add = &(&1 + &2)
 
-    instead of
+  instead of
 
-    add = fn a, b -> a + b end
-    ```
+  add = fn a, b -> a + b end
+  ```
 
 ## Omitting brackets (`&(...)`)
 
@@ -2263,42 +2326,42 @@ In some cases brackets can be ommited, e.g.:
 
 - strings
 
-    ```elixir
-    fun = &("Hello #{&1}")
-    fun = &"Hello #{&1}"
-    ```
+  ```elixir
+  fun = &("Hello #{&1}")
+  fun = &"Hello #{&1}"
+  ```
 
 - tuples
 
-    ```elixir
-    fun = &({&1, &2})
-    fun = &{&1, &2}
-    ```
+  ```elixir
+  fun = &({&1, &2})
+  fun = &{&1, &2}
+  ```
 
 - lists
 
-    ```elixir
-    fun = &([&1 | &2])
-    fun = &[&1 | &2]
-    ```
+  ```elixir
+  fun = &([&1 | &2])
+  fun = &[&1 | &2]
+  ```
 
 ## Restrictions of using capture operator
 
 - at least one placeholder must be present:
 
-    ```elixir
-    &(:foo)
-    ```
+  ```elixir
+  &(:foo)
+  ```
 
 - block expressions are not supported:
 
-    ```elixir
-    &(&1; &2)
-    ```
+  ```elixir
+  &(&1; &2)
+  ```
 
 # `Bitstrings`, `binaries`, `strings`, and `charlists`
 
-`Unicode` organizes all of the characters in its repertoire into *code charts*,
+`Unicode` organizes all of the characters in its repertoire into _code charts_,
 and each character is given a unique numerical index. This numerical index is
 known as a `code point`.
 
@@ -2331,13 +2394,13 @@ iex> "\u03C0"
 "π"
 ```
 
-Whereas the `code point` is *what* we store, an `encoding` deals with *how*
-we store it: `encoding` is an implementation. In other words, we need a
-mechanism to convert the `code point` numbers into bytes so they can be stored
-in memory, written to disk, etc.
+Whereas the `code point` is _what_ we store, an `encoding` deals with _how_ we
+store it: `encoding` is an implementation. In other words, we need a mechanism
+to convert the `code point` numbers into bytes so they can be stored in memory,
+written to disk, etc.
 
-`Elixir` uses `UTF-8` to encode its strings, which means that `code points`
-are encoded as a series of 8-bit bytes. `UTF-8` is a variable width character
+`Elixir` uses `UTF-8` to encode its strings, which means that `code points` are
+encoded as a series of 8-bit bytes. `UTF-8` is a variable width character
 encoding that uses one to four bytes to store each `code point`. It is capable
 of encoding all valid `Unicode` `code points`.
 
@@ -2400,6 +2463,7 @@ iex> <<0x70, 0x69, 0x3A, 0x20>> <> "\u03c0"
 ```
 
 More:
+
 - https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#unicode-and-code-points
 - https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#utf-8-and-encodings
 - https://en.wikipedia.org/wiki/UTF-8#Description
@@ -2410,6 +2474,7 @@ A `bitstring` is a fundamental data type in `Elixir`, denoted with the `<<>>`
 syntax. A `bitstring` is a contiguous sequence of bits in memory.
 
 More:
+
 - https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#bitstrings
 - https://hexdocs.pm/elixir/Kernel.SpecialForms.html#%3C%3C%3E%3E/1
 
@@ -2420,6 +2485,7 @@ means that every `binary` is a `bitstring`, but not every `bitstring` is a
 `binary`.
 
 More:
+
 - https://hexdocs.pm/elixir/binaries-strings-and-charlists.html#binaries
 
 ## `String`
@@ -2463,11 +2529,11 @@ iex> IO.inspect(~c"pi: ", charlists: :as_lists)
 - pattern matching does require the number of items and their order to match
 - dynamic-only access:
 
-    ```elixir
-    map = [name: "john", age: 42]
-    # dynamic
-    map[:name]
-    ```
+  ```elixir
+  map = [name: "john", age: 42]
+  # dynamic
+  map[:name]
+  ```
 
 ## Maps
 
@@ -2477,13 +2543,13 @@ iex> IO.inspect(~c"pi: ", charlists: :as_lists)
 - pattern matching does not require the number of items and their order to match
 - dynamic and static access:
 
-    ```elixir
-    map = %{name: "john", age: 42}
-    # dynamic
-    map[:name]
-    # static
-    map.name
-    ```
+  ```elixir
+  map = %{name: "john", age: 42}
+  # dynamic
+  map[:name]
+  # static
+  map.name
+  ```
 
 ## Summary
 
@@ -2534,6 +2600,7 @@ end
 `Registry.match/3`
 
 More:
+
 - https://hexdocs.pm/elixir/pattern-matching.html
 - https://hexdocs.pm/elixir/Registry.html#match/3
 
@@ -2554,6 +2621,7 @@ all possible error cases without the full context of when and how they can
 happen.
 
 More:
+
 - https://hexdocs.pm/elixir/try-catch-and-rescue.html#fail-fast-let-it-crash
 
 ## `nil`
